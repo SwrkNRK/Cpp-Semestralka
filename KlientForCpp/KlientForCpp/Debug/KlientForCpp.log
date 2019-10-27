@@ -1,0 +1,6 @@
+﻿  Database.cpp
+  Login.cpp
+c:\users\lk\desktop\cpp semestr\klientforcpp\klientforcpp\login.cpp(7): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  Generating Code...
+  Database.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  KlientForCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\KlientForCpp\Debug\KlientForCpp.exe
