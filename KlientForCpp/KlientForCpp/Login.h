@@ -183,6 +183,7 @@ namespace KlientForCpp {
 			this->Name = L"Login";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &Login::Login_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
@@ -202,6 +203,8 @@ namespace KlientForCpp {
 		Database^ d = gcnew Database;
 		d->ShowDialog();
 		this->Close();
+}
+private: System::Void Login_Load(System::Object^  sender, System::EventArgs^  e) {
 }
 };
 }

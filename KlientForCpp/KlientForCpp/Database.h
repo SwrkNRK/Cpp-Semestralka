@@ -1,4 +1,5 @@
 #pragma once
+#include <typeinfo>
 
 namespace KlientForCpp {
 
@@ -41,10 +42,17 @@ namespace KlientForCpp {
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::Button^  button4;
-	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  AddBut;
+
+	private: System::Windows::Forms::Button^  ViewT;
+
+	private: System::Windows::Forms::Button^  CTBut;
+
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
+
+
+
+
 
 
 
@@ -66,9 +74,9 @@ namespace KlientForCpp {
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->AddBut = (gcnew System::Windows::Forms::Button());
+			this->ViewT = (gcnew System::Windows::Forms::Button());
+			this->CTBut = (gcnew System::Windows::Forms::Button());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
@@ -83,9 +91,9 @@ namespace KlientForCpp {
 			// panel1
 			// 
 			this->panel1->Controls->Add(this->button4);
-			this->panel1->Controls->Add(this->button3);
-			this->panel1->Controls->Add(this->button2);
-			this->panel1->Controls->Add(this->button1);
+			this->panel1->Controls->Add(this->AddBut);
+			this->panel1->Controls->Add(this->ViewT);
+			this->panel1->Controls->Add(this->CTBut);
 			this->panel1->Controls->Add(this->panel3);
 			this->panel1->Dock = System::Windows::Forms::DockStyle::Left;
 			this->panel1->Location = System::Drawing::Point(0, 0);
@@ -105,41 +113,41 @@ namespace KlientForCpp {
 			this->button4->Text = L"Dashboard";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
-			// button3
+			// AddBut
 			// 
-			this->button3->FlatAppearance->BorderSize = 0;
-			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button3->ForeColor = System::Drawing::Color::White;
-			this->button3->Location = System::Drawing::Point(0, 425);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(213, 79);
-			this->button3->TabIndex = 2;
-			this->button3->Text = L"Dashboard";
-			this->button3->UseVisualStyleBackColor = true;
+			this->AddBut->FlatAppearance->BorderSize = 0;
+			this->AddBut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->AddBut->ForeColor = System::Drawing::Color::White;
+			this->AddBut->Location = System::Drawing::Point(0, 425);
+			this->AddBut->Name = L"AddBut";
+			this->AddBut->Size = System::Drawing::Size(213, 79);
+			this->AddBut->TabIndex = 2;
+			this->AddBut->Text = L"Add";
+			this->AddBut->UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// ViewT
 			// 
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->ForeColor = System::Drawing::Color::White;
-			this->button2->Location = System::Drawing::Point(0, 312);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(213, 79);
-			this->button2->TabIndex = 1;
-			this->button2->Text = L"Dashboard";
-			this->button2->UseVisualStyleBackColor = true;
+			this->ViewT->FlatAppearance->BorderSize = 0;
+			this->ViewT->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->ViewT->ForeColor = System::Drawing::Color::White;
+			this->ViewT->Location = System::Drawing::Point(0, 312);
+			this->ViewT->Name = L"ViewT";
+			this->ViewT->Size = System::Drawing::Size(213, 79);
+			this->ViewT->TabIndex = 1;
+			this->ViewT->Text = L"View Table";
+			this->ViewT->UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// CTBut
 			// 
-			this->button1->FlatAppearance->BorderSize = 0;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->ForeColor = System::Drawing::Color::White;
-			this->button1->Location = System::Drawing::Point(0, 212);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(213, 79);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"Dashboard";
-			this->button1->UseVisualStyleBackColor = true;
+			this->CTBut->FlatAppearance->BorderSize = 0;
+			this->CTBut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->CTBut->ForeColor = System::Drawing::Color::White;
+			this->CTBut->Location = System::Drawing::Point(0, 212);
+			this->CTBut->Name = L"CTBut";
+			this->CTBut->Size = System::Drawing::Size(213, 79);
+			this->CTBut->TabIndex = 0;
+			this->CTBut->Text = L"Create Table";
+			this->CTBut->UseVisualStyleBackColor = true;
 			// 
 			// panel3
 			// 
@@ -170,15 +178,16 @@ namespace KlientForCpp {
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(1063, 814);
 			this->panel2->TabIndex = 1;
+			this->panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Database::panel2_Paint);
 			// 
 			// dataGridView1
 			// 
-			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::WindowFrame;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(34, 25);
+			this->dataGridView1->Location = System::Drawing::Point(106, 12);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(959, 741);
+			this->dataGridView1->Size = System::Drawing::Size(830, 691);
 			this->dataGridView1->TabIndex = 0;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
 			// 
 			// Database
 			// 
@@ -193,6 +202,7 @@ namespace KlientForCpp {
 				static_cast<System::Byte>(238)));
 			this->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(62)), static_cast<System::Int32>(static_cast<System::Byte>(120)),
 				static_cast<System::Int32>(static_cast<System::Byte>(138)));
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(6, 5, 6, 5);
 			this->Name = L"Database";
 			this->Text = L"Database";
@@ -207,6 +217,18 @@ namespace KlientForCpp {
 		}
 #pragma endregion
 	private: System::Void Database_Load(System::Object^  sender, System::EventArgs^  e) {
+		DataTable^ table = gcnew DataTable;
+		int i;
+		table->Columns->Add("ID", int::typeid);
+		table->Rows->Add(1);
+
+		dataGridView1->DataSource = table;
+
 	}
+private: System::Void dataGridView1_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
+	
+}
+private: System::Void panel2_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+}
 };
 }

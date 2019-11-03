@@ -1,6 +1,8 @@
 ﻿  Database.cpp
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\database.h(221): warning C4101: 'i': unreferenced local variable
   Login.cpp
-c:\users\lk\desktop\cpp semestr\klientforcpp\klientforcpp\login.cpp(7): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\database.h(221): warning C4101: 'i': unreferenced local variable
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.cpp(7): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   Generating Code...
   Database.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  KlientForCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\KlientForCpp\Debug\KlientForCpp.exe
+  KlientForCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\KlientForCpp\Debug\KlientForCpp.exe
