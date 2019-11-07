@@ -1,5 +1,7 @@
 #pragma once
 #include <typeinfo>
+#include <stdio.h>
+
 
 namespace KlientForCpp {
 
@@ -9,7 +11,7 @@ namespace KlientForCpp {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-
+	
 	/// <summary>
 	/// Summary for Database
 	/// </summary>
@@ -49,6 +51,15 @@ namespace KlientForCpp {
 	private: System::Windows::Forms::Button^  CTBut;
 
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::Panel^  panel4;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::TextBox^  TypeTB;
+
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::TextBox^  NameTB;
+	private: System::Windows::Forms::Button^  AddCol;
+	private: System::Windows::Forms::Label^  label3;
+
 
 
 
@@ -81,11 +92,19 @@ namespace KlientForCpp {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->panel4 = (gcnew System::Windows::Forms::Panel());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->TypeTB = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->NameTB = (gcnew System::Windows::Forms::TextBox());
+			this->AddCol = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->panel4->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -136,6 +155,7 @@ namespace KlientForCpp {
 			this->ViewT->TabIndex = 1;
 			this->ViewT->Text = L"View Table";
 			this->ViewT->UseVisualStyleBackColor = true;
+			this->ViewT->Click += gcnew System::EventHandler(this, &Database::ViewT_Click);
 			// 
 			// CTBut
 			// 
@@ -148,6 +168,7 @@ namespace KlientForCpp {
 			this->CTBut->TabIndex = 0;
 			this->CTBut->Text = L"Create Table";
 			this->CTBut->UseVisualStyleBackColor = true;
+			this->CTBut->Click += gcnew System::EventHandler(this, &Database::CTBut_Click);
 			// 
 			// panel3
 			// 
@@ -173,21 +194,95 @@ namespace KlientForCpp {
 			// panel2
 			// 
 			this->panel2->Controls->Add(this->dataGridView1);
-			this->panel2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->panel2->Location = System::Drawing::Point(213, 0);
+			this->panel2->Location = System::Drawing::Point(320, 124);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(1063, 814);
+			this->panel2->Size = System::Drawing::Size(944, 678);
 			this->panel2->TabIndex = 1;
 			this->panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Database::panel2_Paint);
 			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(106, 12);
+			this->dataGridView1->Location = System::Drawing::Point(37, 33);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(830, 691);
+			this->dataGridView1->Size = System::Drawing::Size(949, 730);
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
+			// 
+			// panel4
+			// 
+			this->panel4->Controls->Add(this->label3);
+			this->panel4->Controls->Add(this->label2);
+			this->panel4->Controls->Add(this->TypeTB);
+			this->panel4->Controls->Add(this->label1);
+			this->panel4->Controls->Add(this->NameTB);
+			this->panel4->Controls->Add(this->AddCol);
+			this->panel4->Location = System::Drawing::Point(249, 28);
+			this->panel4->Name = L"panel4";
+			this->panel4->Size = System::Drawing::Size(1044, 701);
+			this->panel4->TabIndex = 2;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label3->Location = System::Drawing::Point(554, 177);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(386, 33);
+			this->label3->TabIndex = 5;
+			this->label3->Text = L"(Int, Double, String, Boolean)";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label2->Location = System::Drawing::Point(19, 177);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(150, 33);
+			this->label2->TabIndex = 4;
+			this->label2->Text = L"Data Type";
+			// 
+			// TypeTB
+			// 
+			this->TypeTB->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->TypeTB->Location = System::Drawing::Point(223, 170);
+			this->TypeTB->Name = L"TypeTB";
+			this->TypeTB->Size = System::Drawing::Size(309, 40);
+			this->TypeTB->TabIndex = 3;
+			this->TypeTB->TextChanged += gcnew System::EventHandler(this, &Database::textBox1_TextChanged);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->label1->Location = System::Drawing::Point(18, 79);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(114, 39);
+			this->label1->TabIndex = 2;
+			this->label1->Text = L"Name";
+			// 
+			// NameTB
+			// 
+			this->NameTB->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->NameTB->Location = System::Drawing::Point(223, 78);
+			this->NameTB->Name = L"NameTB";
+			this->NameTB->Size = System::Drawing::Size(309, 40);
+			this->NameTB->TabIndex = 1;
+			// 
+			// AddCol
+			// 
+			this->AddCol->Location = System::Drawing::Point(25, 270);
+			this->AddCol->Name = L"AddCol";
+			this->AddCol->Size = System::Drawing::Size(158, 64);
+			this->AddCol->TabIndex = 0;
+			this->AddCol->Text = L"Add Col";
+			this->AddCol->UseVisualStyleBackColor = true;
+			this->AddCol->Click += gcnew System::EventHandler(this, &Database::AddCol_Click);
 			// 
 			// Database
 			// 
@@ -196,6 +291,7 @@ namespace KlientForCpp {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(42)), static_cast<System::Int32>(static_cast<System::Byte>(44)),
 				static_cast<System::Int32>(static_cast<System::Byte>(50)));
 			this->ClientSize = System::Drawing::Size(1276, 814);
+			this->Controls->Add(this->panel4);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
 			this->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -212,23 +308,71 @@ namespace KlientForCpp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->panel4->ResumeLayout(false);
+			this->panel4->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
+		DataTable^ table = gcnew DataTable;
 #pragma endregion
 	private: System::Void Database_Load(System::Object^  sender, System::EventArgs^  e) {
-		DataTable^ table = gcnew DataTable;
+		
 		int i;
 		table->Columns->Add("ID", int::typeid);
 		table->Rows->Add(1);
 
 		dataGridView1->DataSource = table;
+		panel2->Visible = true;
+		panel4->Visible = false;
+
 
 	}
 private: System::Void dataGridView1_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
 	
 }
 private: System::Void panel2_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+}
+private: System::Void CTBut_Click(System::Object^  sender, System::EventArgs^  e) {
+	panel2->Visible = false;
+	panel4->Visible = true;
+}
+private: System::Void ViewT_Click(System::Object^  sender, System::EventArgs^  e) {
+	panel4->Visible = false;
+	panel2->Visible = true;
+
+	
+}
+private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+
+
+		 int strToEnum(String^ str) {
+			 str = str->ToLower();
+			 
+		
+			 if (str->Contains("int")) {
+				 return 1;
+			 }
+		 
+			 return 0;
+		 }
+
+private: System::Void AddCol_Click(System::Object^  sender, System::EventArgs^  e) {
+	String^ name = NameTB->Text;
+	String^ type = TypeTB->Text;
+
+	switch (strToEnum(type))
+	{
+	case 1:
+		table->Columns->Add(name, int::typeid);
+		break;
+
+	default:
+		break;
+	}
+
+	
+	
 }
 };
 }
