@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
 #include "ServerSocket.h"
 
 // Static constants for the ServerSocket class
@@ -30,7 +32,7 @@ ServerSocket::ServerSocket(unsigned int thePort, unsigned int theBufferSize, uns
 		string msg = "Failed to allocate the socket set: ";
 		msg += SDLNet_GetError();
 
-		SocketException e(msg);
+		exception e;
 		throw e;
 	}
 	else
@@ -60,7 +62,7 @@ ServerSocket::ServerSocket(unsigned int thePort, unsigned int theBufferSize, uns
 		string msg = "Failed to open the server socket: ";
 		msg += SDLNet_GetError();
 
-		SocketException e(msg);
+		exception e;
 		throw e;
 	}
 	else // If we resolved the host successfully, output the details
@@ -93,7 +95,7 @@ ServerSocket::ServerSocket(unsigned int thePort, unsigned int theBufferSize, uns
 		string msg = "Failed to open the server socket: ";
 		msg += SDLNet_GetError();
 
-		SocketException e(msg);
+		exception e;
 		throw e;
 	}
 	else
@@ -223,7 +225,7 @@ void ServerSocket::dealWithActivity(unsigned int clientNumber)
 {
 	// Get the contents of the buffer as a string
 	string bufferContents = pBuffer;
-
+	/*
 	// Output the message the server received to the screen
 	if (debug) {
 		cout << "Received: >>>> " << bufferContents << " from client number: " << clientNumber << endl;
@@ -255,6 +257,8 @@ void ServerSocket::dealWithActivity(unsigned int clientNumber)
 
 		if (debug) { cout << "Disconnecting all clients and shutting down the server..." << endl; }
 	}
+
+	*/
 
 } // End of dealWithActivity function
 

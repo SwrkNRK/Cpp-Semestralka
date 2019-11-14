@@ -194,7 +194,7 @@ namespace KlientForCpp {
 			// panel2
 			// 
 			this->panel2->Controls->Add(this->dataGridView1);
-			this->panel2->Location = System::Drawing::Point(320, 124);
+			this->panel2->Location = System::Drawing::Point(303, 0);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(944, 678);
 			this->panel2->TabIndex = 1;
@@ -203,11 +203,11 @@ namespace KlientForCpp {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(37, 33);
+			this->dataGridView1->Location = System::Drawing::Point(38, 50);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->Size = System::Drawing::Size(949, 730);
 			this->dataGridView1->TabIndex = 0;
-			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
+			////////////////////////////////////////////////////////////////////// //this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
 			// 
 			// panel4
 			// 
@@ -217,9 +217,9 @@ namespace KlientForCpp {
 			this->panel4->Controls->Add(this->label1);
 			this->panel4->Controls->Add(this->NameTB);
 			this->panel4->Controls->Add(this->AddCol);
-			this->panel4->Location = System::Drawing::Point(249, 28);
+			this->panel4->Location = System::Drawing::Point(229, 12);
 			this->panel4->Name = L"panel4";
-			this->panel4->Size = System::Drawing::Size(1044, 701);
+			this->panel4->Size = System::Drawing::Size(1044, 777);
 			this->panel4->TabIndex = 2;
 			// 
 			// label3

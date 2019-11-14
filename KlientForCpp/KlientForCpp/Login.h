@@ -1,5 +1,8 @@
 #pragma once
+
 #include "Database.h"
+
+using namespace System::Net::Sockets;
 
 namespace KlientForCpp {
 
@@ -199,6 +202,11 @@ namespace KlientForCpp {
 		Application::Exit();
 	}
 	private: System::Void LoginBut_Click(System::Object^  sender, System::EventArgs^  e) {
+		
+		TcpClient^ myTcpClient;
+		myTcpClient = gcnew TcpClient("localhost", 12150);
+		
+
 		this->Hide();
 		Database^ d = gcnew Database;
 		d->ShowDialog();
@@ -207,4 +215,6 @@ namespace KlientForCpp {
 private: System::Void Login_Load(System::Object^  sender, System::EventArgs^  e) {
 }
 };
+
+
 }

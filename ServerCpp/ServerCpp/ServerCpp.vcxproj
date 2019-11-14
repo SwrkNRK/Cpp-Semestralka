@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{a84bb4db-aed3-408b-bade-5f9914bbad7d}</ProjectGuid>
+    <ProjectGuid>{7f915aee-aa23-4812-8818-8d5753e0ad35}</ProjectGuid>
     <RootNamespace>ServerCpp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\ServerCpp;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -79,8 +82,8 @@
       <AdditionalIncludeDirectories>D:\LK\Prevzaté súbory\Vysoká škola\3. ročník\POS\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\LK\Prevzaté súbory\Vysoká škola\3. ročník\POS\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_net.lib;WS2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -121,12 +124,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Database.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ServerSocket.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="TableList.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Database.h" />
     <ClInclude Include="ServerSocket.h" />
-    <ClInclude Include="SocketException.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="TableList.h" />
+    <ClInclude Include="TableStruct.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserLIst.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

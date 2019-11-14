@@ -1,12 +1,17 @@
+// Re-written simple SDL_net socket server example | Nov 2011 | r3dux
 // Library dependencies: libSDL, libSDL_net
+
+// IMPORTANT: This project will only build successfully in Debug mode on Windows!
 
 #include <iostream>
 #include <string>
 #include "SDL_net.h"
 #include "ServerSocket.h"
+#include "Database.h"
 
 int main(int argc, char *argv[])
 {
+
 	// Initialise SDL_net
 	if (SDLNet_Init() == -1)
 	{
@@ -21,15 +26,20 @@ int main(int argc, char *argv[])
 	{
 		// Not try to instantiate the server socket
 		// Parameters: port number, buffer size (i.e. max message size), max sockets
-		ss = new ServerSocket(1234, 512, 3);
+		ss = new ServerSocket(12150, 1024, 5);
 	}
-	catch (SocketException e)
+	catch (exception e)
 	{
 		std::cerr << "Something went wrong creating a SocketServer object." << std::endl;
 		std::cerr << "Error is: " << e.what() << std::endl;
 		std::cerr << "Terminating application." << std::endl;
 		exit(-1);
 	}
+
+	Database* dt = new Database();
+	dt->loadTable("Table1");
+	return 1;
+
 
 	try
 	{
@@ -62,7 +72,7 @@ int main(int argc, char *argv[])
 		} while (ss->getShutdownStatus() == false);
 
 	}
-	catch (SocketException e)
+	catch (exception e)
 	{
 		cerr << "Caught an exception in the main loop..." << endl;
 		cerr << e.what() << endl;

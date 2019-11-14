@@ -6,12 +6,12 @@
 #include <sstream>
 #include "SDL_net.h"
 
-#include "SocketException.h" // Include our custom exception header which defines an inline class
 
 using std::string;
 using std::cout;
 using std::cerr;
 using std::endl;
+using std::exception;
 
 class ServerSocket
 {
