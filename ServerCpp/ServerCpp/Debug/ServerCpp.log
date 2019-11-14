@@ -1,3 +1,4 @@
 ﻿  Database.cpp
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(60): warning C4715: 'Database::loadTable': not all control paths return a value
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(94): warning C4715: 'Database::loadTable': not all control paths return a value
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(135): warning C4715: 'Database::saveTable': not all control paths return a value
   ServerCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe

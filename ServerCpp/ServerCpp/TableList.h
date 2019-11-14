@@ -10,6 +10,7 @@ public:
 	~TableList();
 
 	Table* getTable(int id);
+	Table* findTable(int id);
 	void addTableCount();
 	int getTableCount();
 

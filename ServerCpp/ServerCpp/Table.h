@@ -24,6 +24,7 @@ public:
 	int colCount;								// Count of how many Columns are currently in the table
 
 	int tableID;								// ID of table
+	string tableName;							// name of table
 
 	User* owner;								// A pointer to user who created this table
 private:

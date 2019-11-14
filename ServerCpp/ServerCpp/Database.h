@@ -13,7 +13,8 @@ public:
 	~Database();
 
 	int loadTable(string fileName);
-
+	int saveTable(int id);
+	
 
 private:
 	TableList* tli;

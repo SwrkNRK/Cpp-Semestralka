@@ -1,3 +1,4 @@
+MyTable 1
 Meno:string Priezvisko:string ide:int 
 Jurko Dobrota 1
 Lukyno Cukyno 2

@@ -16,8 +16,18 @@ TableList::~TableList()
 
 
 Table* TableList::getTable(int id) {
-	return &tables[id];
+	return tables;
 }
+
+Table* TableList::findTable(int id) {
+	for (int i = 0; i < tableCount; i++) {
+		if (tables[i].tableID == id) {
+			return &tables[id];
+		}
+	}
+	return NULL;
+}
+
 
 int TableList::getTableCount() {
 	return tableCount;
@@ -26,5 +36,7 @@ int TableList::getTableCount() {
 void TableList::addTableCount() {
 	tableCount++;
 }
+
+
 
 

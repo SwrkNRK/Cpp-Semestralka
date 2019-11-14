@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 
 	Database* dt = new Database();
 	dt->loadTable("Table1");
+	dt->saveTable(1);
 	return 1;
 
 
