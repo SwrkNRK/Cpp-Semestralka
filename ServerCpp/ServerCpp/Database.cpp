@@ -30,56 +30,56 @@ int Database::loadTable(string fileName) {
 	Table *t = tli->getTable(tli->getTableCount());
 	do {
 		c = fgetc(srcFile);
-		tmp += c;
 
 		if ((char)c == ' ') {
 			t->tableName = tmp;
 			tmp = "";
 
-		}
-
-		if ((char)c == '\n') {
+		} else if ((char)c == '\n') {
 			t->tableID = atoi(tmp.c_str());
 			tmp = "";
+		}
+		else {
+			tmp += c;
 		}
 
 	} while (c != '\n');
 
 	do {
 		c = fgetc(srcFile);
-		tmp += c;
+		
 
 		if ((char)c == ' ') {
 			t->col[t->colCount++].type = tmp;
 			printf("%s\n", tmp.c_str());
 			tmp = "";
 
-		}
-
-		if ((char)c == ':') {
+		} else if ((char)c == ':') {
 			t->col[t->colCount].name = tmp;
 			tmp = "";
-		}
+		} else { tmp += c; }
 
 	} while (c != '\n');
 
 	int i = 0;
+	tmp = "";
 
 	do {
 		c = fgetc(srcFile);
-		tmp += c;
+
 
 		if ((char)c == '\n') {
 			t->col[i].row[t->rowCount++].value = tmp;
 			i = 0;
 			tmp = "";
 
-		}
-
-		if ((char)c == ' ') {
+		} else if ((char)c == ' ') {
 			t->col[i++].row[t->rowCount].value = tmp;
 			tmp = "";
 
+		}
+		else {
+			tmp += c;
 		}
 
 	} while (c != EOF);
@@ -103,16 +103,12 @@ int Database::saveTable(int id) {
 	FILE* destFile = fopen(path.c_str(), "w");
 	if (destFile == NULL) { return -1; }
 	string tmp;
-	/* TODO: nejde load tak ako má ukladá sa do premenných : " " a pravdepodobne aj \n
-		saveTable nejde získa špecifickú tabu¾ku pravdepodobne sa nevytvorí pole 
-		alebo aspoò nie je schopné by uložené v Table* tables v triede TableList
 
-
-	*/
 
 	// Writing in file the tableName and ID
 	tmp = t->tableName;
-	tmp += t->tableID;
+	tmp += " ";
+	tmp +=	to_string(t->tableID);
 	tmp += "\n";
 	fputs(tmp.c_str(), destFile);							// writing string tmp to file
 
@@ -121,8 +117,11 @@ int Database::saveTable(int id) {
 		tmp = t->col[i].name;
 		tmp += ":";
 		tmp += t->col[i].type;
+		tmp += " ";
 		fputs(tmp.c_str(), destFile);						// writing string tmp to file
 	}
+	fputc('\n', destFile);
+
 
 	// Writing in file all the data in rows
 	for (int i = 0; i < t->rowCount; i++) {
@@ -130,6 +129,7 @@ int Database::saveTable(int id) {
 		for (int j = 0; j < t->colCount; j++)
 		{
 			tmp += t->col[j].row[i].value;
+			tmp += " ";
 
 		}
 		tmp.pop_back();	//erasing last space in string
