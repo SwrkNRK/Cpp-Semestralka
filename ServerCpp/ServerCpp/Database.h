@@ -12,9 +12,10 @@ public:
 	Database();
 	~Database();
 
+	int loadTables();
 	int loadTable(string fileName);
+	int saveTables();
 	int saveTable(int id);
-	
 
 private:
 	TableList* tli;

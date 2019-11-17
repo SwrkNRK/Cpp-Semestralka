@@ -4,25 +4,29 @@
 TableList::TableList()
 {
 	tableCount = 0;
-	tables = new Table[10];
 
+	for (int i = 0; i < 10; i++)
+	{
+		//Table* t = new Table();
+		tables[i] = new Table();
+	}
 }
 
 TableList::~TableList()
 {
-	delete tables;
+
 
 }
 
 
 Table* TableList::getTable(int id) {
-	return tables;
+	return tables[id];
 }
 
 Table* TableList::findTable(int id) {
 	for (int i = 0; i < tableCount; i++) {
-		if (tables[i].tableID == id) {
-			return &tables[id];
+		if (tables[i]->tableID == id) {
+			return tables[i];
 		}
 	}
 	return NULL;

@@ -2,6 +2,9 @@
 #define TABLELIST_H
 
 #include "Table.h"
+#include <vector>
+
+using std::vector;
 
 class TableList
 {
@@ -16,7 +19,8 @@ public:
 
 private:
 	int tableCount;
-	Table* tables;
+	//vector<Table*> tables;
+	Table *tables[10];
 };
 
 

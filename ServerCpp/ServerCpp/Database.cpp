@@ -18,6 +18,29 @@ Database::~Database()
 }
 
 
+int Database::loadTables() {
+	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+
+	FILE* srcFile = fopen(path.c_str(), "r");
+	if (srcFile == NULL) { return -1; }
+	int c = 0;
+	string tmp;
+
+	do {
+		c = fgetc(srcFile);
+
+		 if ((char)c == '\n' || (c == EOF && tmp != "")) {
+			 loadTable(tmp);
+			tmp = "";
+		}
+		else {
+			tmp += c;
+		}
+
+	} while (c != EOF);
+
+
+}
 
 int Database::loadTable(string fileName) {
 	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\";
@@ -93,9 +116,22 @@ int Database::loadTable(string fileName) {
 
 }
 
+int Database::saveTables() {
+	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+	FILE* destFile = fopen(path.c_str(), "w");
+	if (destFile == NULL) { return -1; }
+	string tmp;
+
+	for (int i = 0; i < tli->getTableCount(); i++) {
+		tmp = tli->getTable(i)->tableName;
+		fputs(tmp.c_str(), destFile);
+	}
+
+	return 1;
+}
 
 int Database::saveTable(int id) {
-	Table *t = tli->getTable(1);
+	Table *t = tli->findTable(id);
 	if (t == NULL) { return -1; }
 	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\";
 	printf("%s\n", t->tableName.c_str());
