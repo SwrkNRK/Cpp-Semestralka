@@ -9,9 +9,19 @@ public:
 	UserList();
 	~UserList();
 
+	void setUserIDCounter(int value);
+	void addUserIDCounter();
+	void addUserCount();
+
+	int getUserCount();
+	int getUserIDCounter();
+
+	User* getUser(int id);
+
 private:
 	int userCount;
-	User* users;
+	int userIDCounter;
+	User* users[20];
 
 };
 

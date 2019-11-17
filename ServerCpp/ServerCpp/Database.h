@@ -14,8 +14,10 @@ public:
 
 	int loadTables();
 	int loadTable(string fileName);
+	int loadUsers();
 	int saveTables();
 	int saveTable(int id);
+	int saveUsers();
 
 private:
 	TableList* tli;

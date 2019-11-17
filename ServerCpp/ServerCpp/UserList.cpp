@@ -6,7 +6,10 @@
 UserList::UserList()
 {
 	userCount = 0;
-	users = new User[20];
+	userIDCounter = 0;
+	for (int i = 0; i < 20; i++) {
+		users[i] = new User();
+	}
 }
 
 UserList::~UserList()
@@ -15,4 +18,26 @@ UserList::~UserList()
 
 }
 
+void UserList::setUserIDCounter(int val) {
+	userIDCounter = val;
+}
 
+void UserList::addUserIDCounter() {
+	userIDCounter++;
+}
+
+void UserList::addUserCount() {
+	userCount++;
+}
+
+int UserList::getUserCount() {
+	return userCount;
+}
+
+int UserList::getUserIDCounter() {
+	return userIDCounter;
+}
+
+User* UserList::getUser(int id) {
+	return users[id];
+}

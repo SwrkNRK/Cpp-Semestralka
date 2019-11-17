@@ -116,6 +116,66 @@ int Database::loadTable(string fileName) {
 
 }
 
+void addUserParam(int *val, string tmp, UserList *uli) {
+	User *u = uli->getUser(uli->getUserCount());
+
+	switch (*val)
+	{
+	case 0:
+		u->name = tmp;
+		break;
+	case 1:
+		u->password = tmp;
+		break;
+	case 2:
+		u->userID = atoi(tmp.c_str());
+		*val = -1;
+		break;
+
+	}
+	
+
+}
+
+int Database::loadUsers() {
+	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+
+	FILE* srcFile = fopen(path.c_str(), "r");
+	if (srcFile == NULL) { return -1; }
+	int c = 0;
+	string tmp = "";
+	int i = 0;
+
+	do {
+		c = fgetc(srcFile);
+		if (c == '\n') {
+			uli->setUserIDCounter(atoi(tmp.c_str()));
+		}
+		else
+		{
+			tmp += c;
+		}
+
+	} while (c != '\n');
+	
+	do {
+		c = fgetc(srcFile);
+
+		if (c == ' ') {
+			addUserParam(&i, tmp, uli);
+			i++;
+			tmp = "";
+		}
+		else if (c == '\n' || (c == EOF && tmp != "")) {
+			//TODO dokonËiù
+		} else {
+			tmp += c;
+		}
+
+	} while (c != EOF);
+
+}
+
 int Database::saveTables() {
 	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
 	FILE* destFile = fopen(path.c_str(), "w");

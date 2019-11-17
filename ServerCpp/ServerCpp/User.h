@@ -12,10 +12,11 @@ public:
 	User(string name, string passwd, int id);
 	~User();
 
-private:
 	string name;
 	string password;
 	int userID;
+
+private:
 
 };
 
