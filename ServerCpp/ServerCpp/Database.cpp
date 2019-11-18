@@ -123,22 +123,23 @@ void addUserParam(int *val, string tmp, UserList *uli) {
 	{
 	case 0:
 		u->name = tmp;
+		*val = *val + 1;
 		break;
 	case 1:
 		u->password = tmp;
+		*val = *val + 1;
 		break;
 	case 2:
 		u->userID = atoi(tmp.c_str());
-		*val = -1;
+		uli->addUserCount();
+		*val = 0;
 		break;
 
 	}
-	
-
 }
 
 int Database::loadUsers() {
-	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
 
 	FILE* srcFile = fopen(path.c_str(), "r");
 	if (srcFile == NULL) { return -1; }
@@ -146,34 +147,35 @@ int Database::loadUsers() {
 	string tmp = "";
 	int i = 0;
 
+	// load UserIDCounter from file
 	do {
 		c = fgetc(srcFile);
 		if (c == '\n') {
 			uli->setUserIDCounter(atoi(tmp.c_str()));
-		}
-		else
-		{
+			tmp = "";
+		} else {
 			tmp += c;
 		}
 
 	} while (c != '\n');
 	
+	// load Users from file
 	do {
 		c = fgetc(srcFile);
 
 		if (c == ' ') {
 			addUserParam(&i, tmp, uli);
-			i++;
 			tmp = "";
 		}
 		else if (c == '\n' || (c == EOF && tmp != "")) {
-			//TODO dokonèi
+			addUserParam(&i, tmp, uli);
+			tmp = "";
 		} else {
 			tmp += c;
 		}
 
 	} while (c != EOF);
-
+	printf("%d\n", uli->getUser(3)->userID);
 }
 
 int Database::saveTables() {
@@ -237,4 +239,35 @@ int Database::saveTable(int id) {
 }
 
 
+void Database::registerUser(string nam, string passwd) {
+	uli->getUser(uli->getUserCount())->~User();
+	User* u = new User(nam, passwd, uli->getUserIDCounter());
+	uli->setUser(u, uli->getUserCount());
+	uli->addUserIDCounter();
+	uli->addUserCount();
+}
 
+int Database::saveUsers() {
+	string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
+	FILE* destFile = fopen(path.c_str(), "w");
+	if (destFile == NULL) { return -1; }
+	string tmp;
+
+	tmp = to_string(uli->getUserIDCounter());
+	tmp += '\n';
+	fputs(tmp.c_str(), destFile);
+	
+	for (int i = 0; i < uli->getUserCount(); i++) {
+		tmp = uli->getUser(i)->name;
+		tmp += " ";
+		tmp += uli->getUser(i)->password;
+		tmp += " ";
+		tmp += to_string(uli->getUser(i)->userID);
+		tmp += "\n";
+		fputs(tmp.c_str(), destFile);
+
+	}
+	
+	return 1;
+
+}

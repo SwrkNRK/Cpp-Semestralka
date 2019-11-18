@@ -41,3 +41,12 @@ int UserList::getUserIDCounter() {
 User* UserList::getUser(int id) {
 	return users[id];
 }
+
+void UserList::delUser(int id) {
+	users[id]->~User();
+	delete users[id];
+}
+
+void UserList::setUser(User* user, int id) {
+	users[id] = user;
+}

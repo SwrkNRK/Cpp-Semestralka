@@ -225,6 +225,7 @@ void ServerSocket::dealWithActivity(unsigned int clientNumber)
 {
 	// Get the contents of the buffer as a string
 	string bufferContents = pBuffer;
+	printf("From client: %s\n", bufferContents.c_str());
 	/*
 	// Output the message the server received to the screen
 	if (debug) {

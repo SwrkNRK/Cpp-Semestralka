@@ -18,6 +18,9 @@ public:
 	int saveTables();
 	int saveTable(int id);
 	int saveUsers();
+	void registerUser(string name, string password);
+
+	void setUser(User *user);
 
 private:
 	TableList* tli;

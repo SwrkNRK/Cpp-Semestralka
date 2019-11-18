@@ -37,10 +37,8 @@ int main(int argc, char *argv[])
 	}
 
 	Database* dt = new Database();
-	dt->loadTables();
-	dt->saveTables();
-	//dt->saveTable(111);
-	return 1;
+	dt->loadUsers();
+	
 
 
 	try

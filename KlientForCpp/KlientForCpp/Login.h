@@ -1,8 +1,16 @@
 #pragma once
 
 #include "Database.h"
+using namespace System;
+
+using namespace	System::Net;
 
 using namespace System::Net::Sockets;
+
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 namespace KlientForCpp {
 
@@ -205,6 +213,28 @@ namespace KlientForCpp {
 		
 		TcpClient^ myTcpClient;
 		myTcpClient = gcnew TcpClient("localhost", 12150);
+		int bufferSize = 1024;
+
+		array<Byte>^ sendBuffer = gcnew array<Byte>(bufferSize);
+
+		array<Byte>^ receiveBuffer = gcnew array<Byte>(bufferSize);
+
+		array<Byte>^ byteCount;
+		int bytesToRead = 0, nextReadCount, rc;
+
+		// Get a client stream for reading and writing.
+	   //  Stream stream = client.GetStream();
+		String^ str = "fasKo\0";
+
+		//sendBuffer = str;
+		NetworkStream^ stream = myTcpClient->GetStream();
+		
+
+		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+
+		// Send the message to the connected TcpServer. 
+		//stream->Write(sendBuffer, 0, sendBuffer);
+		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 		
 
 		this->Hide();

@@ -17,6 +17,8 @@ public:
 	int getUserIDCounter();
 
 	User* getUser(int id);
+	void setUser(User *user, int id);
+	void delUser(int id);
 
 private:
 	int userCount;
