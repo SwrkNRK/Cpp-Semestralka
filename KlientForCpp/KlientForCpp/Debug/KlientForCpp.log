@@ -1,10 +1,11 @@
-﻿  Login.cpp
+﻿  Database.cpp
 c1xx : warning C4199: two-phase name lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\database.h(320): warning C4101: 'i': unreferenced local variable
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.h(219): warning C4101: 'nextReadCount': unreferenced local variable
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.h(218): warning C4101: 'byteCount': unreferenced local variable
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.h(219): warning C4101: 'rc': unreferenced local variable
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.cpp(7): warning C4326: return type of 'main' should be 'int' instead of 'void'
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\klientforcpp\klientforcpp\login.cpp(7): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+c:\users\samuel\git\cpp-semestralka\klientforcpp\klientforcpp\database.h(307): warning C4101: 'i': unreferenced local variable
+  Login.cpp
+c1xx : warning C4199: two-phase name lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-
+c:\users\samuel\git\cpp-semestralka\klientforcpp\klientforcpp\database.h(307): warning C4101: 'i': unreferenced local variable
+c:\users\samuel\git\cpp-semestralka\klientforcpp\klientforcpp\login.cpp(7): warning C4326: return type of 'main' should be 'int' instead of 'void'
+c:\users\samuel\git\cpp-semestralka\klientforcpp\klientforcpp\login.cpp(7): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  Generating Code...
   Database.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  KlientForCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\KlientForCpp\Debug\KlientForCpp.exe
+  KlientForCpp.vcxproj -> C:\Users\Samuel\git\Cpp-Semestralka\KlientForCpp\Debug\KlientForCpp.exe

@@ -53,12 +53,13 @@ namespace KlientForCpp {
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
 	private: System::Windows::Forms::Panel^  panel4;
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::TextBox^  TypeTB;
+
 
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::TextBox^  NameTB;
 	private: System::Windows::Forms::Button^  AddCol;
-	private: System::Windows::Forms::Label^  label3;
+
+	private: System::Windows::Forms::ComboBox^  comboBoxDataType;
 
 
 
@@ -93,9 +94,8 @@ namespace KlientForCpp {
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
-			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->comboBoxDataType = (gcnew System::Windows::Forms::ComboBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->TypeTB = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->NameTB = (gcnew System::Windows::Forms::TextBox());
 			this->AddCol = (gcnew System::Windows::Forms::Button());
@@ -207,13 +207,11 @@ namespace KlientForCpp {
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->Size = System::Drawing::Size(949, 730);
 			this->dataGridView1->TabIndex = 0;
-			////////////////////////////////////////////////////////////////////// //this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
 			// 
 			// panel4
 			// 
-			this->panel4->Controls->Add(this->label3);
+			this->panel4->Controls->Add(this->comboBoxDataType);
 			this->panel4->Controls->Add(this->label2);
-			this->panel4->Controls->Add(this->TypeTB);
 			this->panel4->Controls->Add(this->label1);
 			this->panel4->Controls->Add(this->NameTB);
 			this->panel4->Controls->Add(this->AddCol);
@@ -222,16 +220,15 @@ namespace KlientForCpp {
 			this->panel4->Size = System::Drawing::Size(1044, 777);
 			this->panel4->TabIndex = 2;
 			// 
-			// label3
+			// comboBoxDataType
 			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(238)));
-			this->label3->Location = System::Drawing::Point(554, 177);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(386, 33);
-			this->label3->TabIndex = 5;
-			this->label3->Text = L"(Int, Double, String, Boolean)";
+			this->comboBoxDataType->FormattingEnabled = true;
+			this->comboBoxDataType->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Integer", L"Double", L"String", L"Boolean" });
+			this->comboBoxDataType->Location = System::Drawing::Point(223, 180);
+			this->comboBoxDataType->Name = L"comboBoxDataType";
+			this->comboBoxDataType->Size = System::Drawing::Size(127, 30);
+			this->comboBoxDataType->TabIndex = 6;
+			this->comboBoxDataType->Text = L"type";
 			// 
 			// label2
 			// 
@@ -243,16 +240,6 @@ namespace KlientForCpp {
 			this->label2->Size = System::Drawing::Size(150, 33);
 			this->label2->TabIndex = 4;
 			this->label2->Text = L"Data Type";
-			// 
-			// TypeTB
-			// 
-			this->TypeTB->Font = (gcnew System::Drawing::Font(L"Century Gothic", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(238)));
-			this->TypeTB->Location = System::Drawing::Point(223, 170);
-			this->TypeTB->Name = L"TypeTB";
-			this->TypeTB->Size = System::Drawing::Size(309, 40);
-			this->TypeTB->TabIndex = 3;
-			this->TypeTB->TextChanged += gcnew System::EventHandler(this, &Database::textBox1_TextChanged);
 			// 
 			// label1
 			// 
@@ -342,31 +329,45 @@ private: System::Void ViewT_Click(System::Object^  sender, System::EventArgs^  e
 
 	
 }
-private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) { 
 }
-
-
 		 int strToEnum(String^ str) {
 			 str = str->ToLower();
 			 
-		
-			 if (str->Contains("int")) {
+			 if (str->Contains("int")) { //dava pozor ci vpisovany text je int
 				 return 1;
+			 } 
+			 if (str->Contains("double")) { 
+				 return 2;
 			 }
-		 
+			 if (str->Contains("string")) {
+				 return 2;
+			 }
+			 if (str->Contains("boolean")) {
+				 return 2;
+			 }
 			 return 0;
 		 }
 
 private: System::Void AddCol_Click(System::Object^  sender, System::EventArgs^  e) {
-	String^ name = NameTB->Text;
-	String^ type = TypeTB->Text;
+	String^ name = NameTB->Text; //meno pridavaneho stlpca
+	//String^ type = TypeTB->Text;
+	String^ type = this->comboBoxDataType->SelectedItem->ToString();  //aky bude povoleny datovy typ v stlpci
 
 	switch (strToEnum(type))
 	{
 	case 1:
 		table->Columns->Add(name, int::typeid);
 		break;
-
+	case 2:
+		table->Columns->Add(name, double::typeid);
+		break;
+	case 3:
+		table->Columns->Add(name, String::typeid);
+		break;
+	case 4:
+		table->Columns->Add(name, Boolean::typeid);
+		break;
 	default:
 		break;
 	}
