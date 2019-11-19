@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
 				{
 					// ...then process that client!
 					ss->dealWithActivity(activeClient);
+
 				}
 
 				// When there are no more clients with activity to process, continue...

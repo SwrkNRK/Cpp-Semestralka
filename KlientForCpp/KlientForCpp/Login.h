@@ -7,10 +7,6 @@ using namespace	System::Net;
 
 using namespace System::Net::Sockets;
 
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-
 
 namespace KlientForCpp {
 
@@ -235,7 +231,28 @@ namespace KlientForCpp {
 		// Send the message to the connected TcpServer. 
 		//stream->Write(sendBuffer, 0, sendBuffer);
 		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+		sendBuffer->Clear(sendBuffer, 0, System::Text::Encoding::ASCII->GetCharCount(sendBuffer));
+
+		do {
+
+			if (stream->DataAvailable) {
+				stream->Read(sendBuffer, 0, 5);
+
+				break;
+			}
+
+		} while (true);
 		
+		str = System::Text::Encoding::ASCII->GetString(sendBuffer);
+		str += "\0";
+
+		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+
+		// Send the message to the connected TcpServer. 
+		//stream->Write(sendBuffer, 0, sendBuffer);
+		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
 
 		this->Hide();
 		Database^ d = gcnew Database;

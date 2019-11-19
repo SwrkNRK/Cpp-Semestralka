@@ -194,7 +194,7 @@ void ServerSocket::checkForConnections()
 			// Send a message to the client saying "OK" to indicate the incoming connection has been accepted
 			strcpy(pBuffer, SERVER_NOT_FULL.c_str());
 			int msgLength = strlen(pBuffer) + 1;
-			SDLNet_TCP_Send(pClientSocket[freeSpot], (void *)pBuffer, msgLength);
+			//SDLNet_TCP_Send(pClientSocket[freeSpot], (void *)pBuffer, msgLength);
 
 			if (debug) { cout << "Client connected. There are now " << clientCount << " client(s) connected." << endl; }
 		}
@@ -225,7 +225,11 @@ void ServerSocket::dealWithActivity(unsigned int clientNumber)
 {
 	// Get the contents of the buffer as a string
 	string bufferContents = pBuffer;
+
 	printf("From client: %s\n", bufferContents.c_str());
+
+	strcpy(pBuffer, "Ahoj");
+	SDLNet_TCP_Send(pClientSocket[clientNumber], (void *)pBuffer, strlen(pBuffer)+1);
 	/*
 	// Output the message the server received to the screen
 	if (debug) {
