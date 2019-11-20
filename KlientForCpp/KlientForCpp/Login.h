@@ -206,7 +206,7 @@ namespace KlientForCpp {
 		Application::Exit();
 	}
 	private: System::Void LoginBut_Click(System::Object^  sender, System::EventArgs^  e) {
-		
+		/*
 		TcpClient^ myTcpClient;
 		myTcpClient = gcnew TcpClient("localhost", 12150);
 		int bufferSize = 1024;
@@ -252,7 +252,7 @@ namespace KlientForCpp {
 		// Send the message to the connected TcpServer. 
 		//stream->Write(sendBuffer, 0, sendBuffer);
 		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-
+		*/
 
 		this->Hide();
 		Database^ d = gcnew Database;
