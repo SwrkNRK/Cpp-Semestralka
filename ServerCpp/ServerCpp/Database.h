@@ -22,10 +22,10 @@ public:
 
 	void setUser(User *user);
 
-private:
+
 	TableList* tli;
 	UserList* uli;
-
+private:
 
 
 

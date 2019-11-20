@@ -20,6 +20,16 @@ Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 Class KlientForCpp.Database: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Net.Sockets.TcpClient myTcpClient : Public
+    Int32 bufferSize : Public
+    Byte[] sendBuffer : Public
+    Byte[] receiveBuffer : Public
+    System.Net.Sockets.NetworkStream stream : Public
+  Methods:
+    tryToConnect(): PrivateScope, Public, HideBySig
 Class KlientForCpp.Login: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    LoginBut_Click(Object, EventArgs): PrivateScope, Public, HideBySig

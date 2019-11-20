@@ -2,6 +2,11 @@
 #include <typeinfo>
 #include <stdio.h>
 
+using namespace System;
+
+using namespace	System::Net;
+
+using namespace System::Net::Sockets;
 
 namespace KlientForCpp {
 
@@ -24,6 +29,26 @@ namespace KlientForCpp {
 			//
 			//TODO: Add the constructor code here
 			//
+		}
+
+
+
+		 TcpClient^ myTcpClient;
+
+		 int bufferSize = 1024;
+
+		 array<Byte>^ sendBuffer = gcnew array<Byte>(bufferSize);
+
+		 array<Byte>^ receiveBuffer = gcnew array<Byte>(bufferSize);
+
+		 NetworkStream^ stream;
+
+
+		void tryToConnect() {
+			myTcpClient = gcnew TcpClient("localhost", 12150);
+			stream = myTcpClient->GetStream();
+
+
 		}
 
 	protected:
@@ -59,13 +84,7 @@ namespace KlientForCpp {
 	private: System::Windows::Forms::TextBox^  NameTB;
 	private: System::Windows::Forms::Button^  AddCol;
 	private: System::Windows::Forms::Label^  label3;
-
-
-
-
-
-
-
+	private: System::Windows::Forms::Button^  button1;
 
 
 	private:
@@ -99,6 +118,7 @@ namespace KlientForCpp {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->NameTB = (gcnew System::Windows::Forms::TextBox());
 			this->AddCol = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -193,8 +213,10 @@ namespace KlientForCpp {
 			// 
 			// panel2
 			// 
+			this->panel2->Controls->Add(this->button1);
+			this->panel2->Controls->Add(this->panel4);
 			this->panel2->Controls->Add(this->dataGridView1);
-			this->panel2->Location = System::Drawing::Point(303, 0);
+			this->panel2->Location = System::Drawing::Point(275, 0);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(944, 678);
 			this->panel2->TabIndex = 1;
@@ -203,11 +225,10 @@ namespace KlientForCpp {
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(38, 50);
+			this->dataGridView1->Location = System::Drawing::Point(39, 72);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(949, 730);
+			this->dataGridView1->Size = System::Drawing::Size(948, 708);
 			this->dataGridView1->TabIndex = 0;
-			////////////////////////////////////////////////////////////////////// //this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Database::dataGridView1_CellContentClick);
 			// 
 			// panel4
 			// 
@@ -217,7 +238,7 @@ namespace KlientForCpp {
 			this->panel4->Controls->Add(this->label1);
 			this->panel4->Controls->Add(this->NameTB);
 			this->panel4->Controls->Add(this->AddCol);
-			this->panel4->Location = System::Drawing::Point(229, 12);
+			this->panel4->Location = System::Drawing::Point(398, 192);
 			this->panel4->Name = L"panel4";
 			this->panel4->Size = System::Drawing::Size(1044, 777);
 			this->panel4->TabIndex = 2;
@@ -284,6 +305,16 @@ namespace KlientForCpp {
 			this->AddCol->UseVisualStyleBackColor = true;
 			this->AddCol->Click += gcnew System::EventHandler(this, &Database::AddCol_Click);
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(89, 20);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(148, 47);
+			this->button1->TabIndex = 3;
+			this->button1->Text = L"Load Data";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Database::button1_Click);
+			// 
 			// Database
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(11, 22);
@@ -291,7 +322,6 @@ namespace KlientForCpp {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(42)), static_cast<System::Int32>(static_cast<System::Byte>(44)),
 				static_cast<System::Int32>(static_cast<System::Byte>(50)));
 			this->ClientSize = System::Drawing::Size(1276, 814);
-			this->Controls->Add(this->panel4);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
 			this->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -317,11 +347,8 @@ namespace KlientForCpp {
 #pragma endregion
 	private: System::Void Database_Load(System::Object^  sender, System::EventArgs^  e) {
 		
-		int i;
-		table->Columns->Add("ID", int::typeid);
-		table->Rows->Add(1);
 
-		dataGridView1->DataSource = table;
+
 		panel2->Visible = true;
 		panel4->Visible = false;
 
@@ -353,6 +380,18 @@ private: System::Void textBox1_TextChanged(System::Object^  sender, System::Even
 			 if (str->Contains("int")) {
 				 return 1;
 			 }
+
+			 if (str->Contains("double")) {
+				 return 2;
+			 }
+
+			 if (str->Contains("string")) {
+				 return 3;
+			 }
+
+			 if (str->Contains("boolean")) {
+				 return 4;
+			 }
 		 
 			 return 0;
 		 }
@@ -366,6 +405,15 @@ private: System::Void AddCol_Click(System::Object^  sender, System::EventArgs^  
 	case 1:
 		table->Columns->Add(name, int::typeid);
 		break;
+	case 2:
+		table->Columns->Add(name, double::typeid);
+		break;
+	case 3:
+		table->Columns->Add(name, String::typeid);
+		break;
+	case 4:
+		table->Columns->Add(name, Boolean::typeid);
+		break;
 
 	default:
 		break;
@@ -373,6 +421,106 @@ private: System::Void AddCol_Click(System::Object^  sender, System::EventArgs^  
 
 	
 	
+}
+		 void addColToTable(String^ str1, String^ str2) {
+
+			 switch (strToEnum(str2))
+			 {
+			 case 1:
+				 table->Columns->Add(str1, int::typeid);
+				 break;
+			 
+			 case 2:
+				 table->Columns->Add(str1, double::typeid);
+				 break;
+
+			 case 3:
+				 table->Columns->Add(str1, String::typeid);
+				 break;
+
+			 case 4:
+				 table->Columns->Add(str1, Boolean::typeid);
+				 break;
+
+			 default:
+				 break;
+			 }
+
+		 }
+
+		 void loadTableByStr(array<Byte>^ recvBufr) {
+			 delete table;
+			 table = gcnew DataTable;
+			 int i = 0;
+			
+			 String^ str = "";
+			 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
+			 
+
+			 do {
+
+				 if (recvBufr[i] == ' ' || recvBufr[i] == '*') {
+					 splitedStr = str->Split(':');
+					 addColToTable(splitedStr[0], splitedStr[1]);
+					 str = "";
+				 }
+				 else { str += Convert::ToChar(recvBufr[i]); }
+
+				 i++;
+
+			 } while (recvBufr[i] != '*');
+
+			 i += 2;
+
+			 do {
+
+				 if (recvBufr[i] == ':') {
+					 splitedStr = str->Split(',');
+					 for (int i = 0; i < table->Columns->Count; i++) {
+						 DataRow^ row = table->NewRow();
+						//TODO
+						 table->Rows->InsertAt(row, i);
+						 table->Rows->Add(splitedStr[i]);
+					 }
+					 
+					 str = "";
+				 }
+				 else { str += Convert::ToChar(recvBufr[i]); }
+
+				 i++;
+
+			 } while (recvBufr[i] != '*');
+
+			 dataGridView1->DataSource = table;
+			 
+
+		 }
+
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+
+
+	table->Columns->Add("ID", int::typeid);
+	table->Rows->Add(1);
+
+	String^ str = "LOAD:111\0";
+
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+	do {
+
+		if (stream->DataAvailable) {
+			stream->Read(receiveBuffer, 0, 150);
+
+			break;
+		}
+	} while (true);
+
+	str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
+
+	loadTableByStr(receiveBuffer);
+
 }
 };
 }

@@ -56,7 +56,9 @@ public:
 	int checkForActivity();
 
 	// Function to actually do something when client activity is detected!
-	void dealWithActivity(unsigned int clientNumber);
+	string dealWithActivity(unsigned int clientNumber);
+
+	void sendToClient(unsigned int clientNumber, string str);
 
 	// Function to return the shutdown status, used to control when to terminate
 	bool getShutdownStatus();

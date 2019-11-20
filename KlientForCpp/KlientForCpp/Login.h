@@ -1,11 +1,6 @@
 #pragma once
 
 #include "Database.h"
-using namespace System;
-
-using namespace	System::Net;
-
-using namespace System::Net::Sockets;
 
 
 namespace KlientForCpp {
@@ -17,11 +12,15 @@ namespace KlientForCpp {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+
+
+
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
 	public ref class Login : public System::Windows::Forms::Form
 	{
+
 	public:
 		Login(void)
 		{
@@ -30,6 +29,7 @@ namespace KlientForCpp {
 			//TODO: Add the constructor code here
 			//
 		}
+
 
 	protected:
 		/// <summary>
@@ -205,57 +205,12 @@ namespace KlientForCpp {
 	private: System::Void CloseBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 		Application::Exit();
 	}
-	private: System::Void LoginBut_Click(System::Object^  sender, System::EventArgs^  e) {
-		/*
-		TcpClient^ myTcpClient;
-		myTcpClient = gcnew TcpClient("localhost", 12150);
-		int bufferSize = 1024;
-
-		array<Byte>^ sendBuffer = gcnew array<Byte>(bufferSize);
-
-		array<Byte>^ receiveBuffer = gcnew array<Byte>(bufferSize);
-
-		array<Byte>^ byteCount;
-		int bytesToRead = 0, nextReadCount, rc;
-
-		// Get a client stream for reading and writing.
-	   //  Stream stream = client.GetStream();
-		String^ str = "fasKo\0";
-
-		//sendBuffer = str;
-		NetworkStream^ stream = myTcpClient->GetStream();
+	public: System::Void LoginBut_Click(System::Object^  sender, System::EventArgs^  e) {
 		
-
-		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-
-		// Send the message to the connected TcpServer. 
-		//stream->Write(sendBuffer, 0, sendBuffer);
-		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-
-		sendBuffer->Clear(sendBuffer, 0, System::Text::Encoding::ASCII->GetCharCount(sendBuffer));
-
-		do {
-
-			if (stream->DataAvailable) {
-				stream->Read(sendBuffer, 0, 5);
-
-				break;
-			}
-
-		} while (true);
-		
-		str = System::Text::Encoding::ASCII->GetString(sendBuffer);
-		str += "\0";
-
-		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-
-		// Send the message to the connected TcpServer. 
-		//stream->Write(sendBuffer, 0, sendBuffer);
-		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-		*/
 
 		this->Hide();
 		Database^ d = gcnew Database;
+		d->tryToConnect();
 		d->ShowDialog();
 		this->Close();
 }

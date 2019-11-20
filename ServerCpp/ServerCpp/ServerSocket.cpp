@@ -221,15 +221,12 @@ void ServerSocket::checkForConnections()
 // Function to do something appropriate with the detected socket activity (i.e. we received a message from a client)
 // You should put whatever you want to happen when a message is sent from a client inside this function!
 // In this example case, I'm going to send the message to all other connected clients except the one who originated the message!
-void ServerSocket::dealWithActivity(unsigned int clientNumber)
+string ServerSocket::dealWithActivity(unsigned int clientNumber)
 {
 	// Get the contents of the buffer as a string
 	string bufferContents = pBuffer;
+	return bufferContents;
 
-	printf("From client: %s\n", bufferContents.c_str());
-
-	strcpy(pBuffer, "Ahoj");
-	SDLNet_TCP_Send(pClientSocket[clientNumber], (void *)pBuffer, strlen(pBuffer)+1);
 	/*
 	// Output the message the server received to the screen
 	if (debug) {
@@ -266,6 +263,14 @@ void ServerSocket::dealWithActivity(unsigned int clientNumber)
 	*/
 
 } // End of dealWithActivity function
+
+void ServerSocket::sendToClient(unsigned int clientNumber, string str) {
+
+	strcpy(pBuffer, str.c_str());
+	SDLNet_TCP_Send(pClientSocket[clientNumber], (void *)pBuffer, strlen(pBuffer) + 1);
+}
+
+
 
 // Function to check all connected client sockets for activity
 // If we find a client with activity we return its number, or if there are

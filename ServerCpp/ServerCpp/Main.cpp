@@ -7,7 +7,7 @@
 #include <string>
 #include "SDL_net.h"
 #include "ServerSocket.h"
-#include "Database.h"
+#include "Commands.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,8 +36,7 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 
-	Database* dt = new Database();
-	dt->loadUsers();
+	Commands *cmd = new Commands();
 	
 
 
@@ -62,7 +61,7 @@ int main(int argc, char *argv[])
 				if (activeClient != -1)
 				{
 					// ...then process that client!
-					ss->dealWithActivity(activeClient);
+					ss->sendToClient(activeClient, cmd->processMsg(ss->dealWithActivity(activeClient)));
 
 				}
 
