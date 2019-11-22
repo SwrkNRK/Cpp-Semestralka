@@ -14,7 +14,6 @@ namespace KlientForCpp {
 
 
 
-
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -50,6 +49,7 @@ namespace KlientForCpp {
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
 	private: System::Windows::Forms::Button^  LoginBut;
 	private: System::Windows::Forms::Button^  CloseBtn;
+	private: System::Windows::Forms::DataGridView^  dataGridView1;
 
 	protected:
 
@@ -79,8 +79,10 @@ namespace KlientForCpp {
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->LoginBut = (gcnew System::Windows::Forms::Button());
 			this->CloseBtn = (gcnew System::Windows::Forms::Button());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// Username
@@ -172,13 +174,29 @@ namespace KlientForCpp {
 			this->CloseBtn->UseVisualStyleBackColor = true;
 			this->CloseBtn->Click += gcnew System::EventHandler(this, &Login::CloseBtn_Click);
 			// 
-			// Login
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Location = System::Drawing::Point(34, 62);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(240, 150);
+			this->dataGridView1->TabIndex = 7;
+			this->dataGridView1->Columns->Add("1", "1");
+			this->dataGridView1->Columns->Add("2", "2");
+			this->dataGridView1->Rows->Add("dd");
+			this->dataGridView1->Rows->Add("ds" );
+			array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
+			splitedStr[0] = "GF";
+			splitedStr[1] = "GFDWEFEW";
+			this->dataGridView1->Rows->Add(splitedStr);
+			// Logind1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1033, 691);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->CloseBtn);
 			this->Controls->Add(this->LoginBut);
 			this->Controls->Add(this->pictureBox2);
@@ -193,6 +211,7 @@ namespace KlientForCpp {
 			this->Load += gcnew System::EventHandler(this, &Login::Login_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -215,6 +234,8 @@ namespace KlientForCpp {
 		this->Close();
 }
 private: System::Void Login_Load(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
 }
 };
 

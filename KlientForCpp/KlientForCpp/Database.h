@@ -1,10 +1,5 @@
 #pragma once
-#include <typeinfo>
-#include <stdio.h>
 
-using namespace System;
-
-using namespace	System::Net;
 
 using namespace System::Net::Sockets;
 
@@ -124,6 +119,7 @@ namespace KlientForCpp {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+
 			this->panel4->SuspendLayout();
 			this->SuspendLayout();
 			// 
