@@ -21,6 +21,10 @@ int Commands::strToEnum(string str) {
 		return LOAD;
 	}
 
+	if (str == "SAVE") {
+		return SAVE;
+	}
+
 }
 
 string Commands::processMsg(string str) {  //LOAD:111
@@ -37,6 +41,9 @@ string Commands::processMsg(string str) {  //LOAD:111
 	{
 	case 1:
 		return loadTableData(atoi(s[1].c_str()));
+		break;
+	case 2:
+		return saveTableData(s);
 		break;
 	}
 
@@ -74,3 +81,36 @@ string Commands::loadTableData(int tableID) {
 
 	return str;
 }
+
+//Jurko,Dobrota,1:Lukyno,Cukyno,2:Samko,Pash,3:Robko,Bobko,4:gr,,7*
+
+void addRowToTable(Table *t, string str, int id) {
+	vector<string> s;
+	char delimiter = ',';
+	string tok = "";
+	stringstream ss(str);
+	int i = 0;
+	while (getline(ss, tok, delimiter)) {
+		t->col[i++].row[id].value = tok;
+	}
+	
+
+}
+
+
+string Commands::saveTableData(vector<string> str) {
+	int i = 1;
+	Table *t = dt->tli->findTable(atoi(str[i++].c_str()));			// after this i = 2
+	t->rowCount = 0;
+	do {
+
+		addRowToTable(t, str[i], t->rowCount);
+		t->rowCount++;
+		i++;
+	} while (str[i] != "*");
+
+
+	return "SAVED";
+}
+
+

@@ -249,6 +249,23 @@ namespace Klient {
 
 			 }
 
+			 String^ getDataFromServer() {
+				 String^ str = "";
+				 do {
+
+					 if (stream->DataAvailable) {
+						 stream->Read(receiveBuffer, 0, 150);
+
+						 break;
+					 }
+				 } while (true);
+
+				 str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
+
+				 return str;
+
+			}
+
 
 	private: System::Void LoadBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -257,26 +274,49 @@ namespace Klient {
 		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
-		do {
 
-			if (stream->DataAvailable) {
-				stream->Read(receiveBuffer, 0, 150);
-
-				break;
-			}
-		} while (true);
-
-		str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
+		getDataFromServer();
 
 		loadTableByStr(receiveBuffer);
 
 
 	}
 
+			String^ getActualData() {
+				String ^ str = "";
+				dataGridView1->AllowUserToAddRows = false; //pri nacitavani dat treba zakazat uzivatelovi editovat tabulku
+				for (int i = 0; i < dataGridView1->Rows->Count; i++)
+				{
+					for (int j = 0; j < dataGridView1->Columns->Count; j++)
+					{
+						str += dataGridView1[j, i]->Value->ToString();
+						if (j != dataGridView1->Columns->Count - 1)
+						{
+							str += ",";
+						}
+					}
+					str += ":";
+				}
+				str += "*";
+				dataGridView1->AllowUserToAddRows = true;
+
+				return str;
+	}
+
 
 private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+	String^ str = "SAVE:111:";
 
+	str += getActualData();
+	str += "\0";
 
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+	
+	if (!getDataFromServer()->Contains("SAVED")) {
+		//TODO popup okno pre klienta, nepodarilo sa uloûiù d·ta na server
+	}
 }
 };
 }

@@ -11,10 +11,11 @@ public:
 
 	string processMsg(string str);
 	string loadTableData(int tableID);
+	string saveTableData(vector<string> str);
 
 	int strToEnum(string str);
 
-	enum Cmds { LOAD=1 };
+	enum Cmds { LOAD=1, SAVE };
 
 	Database* dt;
 
