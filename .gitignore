@@ -259,3 +259,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+KlientForCpp/.vs/KlientForCpp/v15/.suo
+KlientForCpp/.vs/KlientForCpp/v15/.suo
+KlientForCpp/.vs/KlientForCpp/v15/Browse.VC.db
+KlientForCpp/.vs/KlientForCpp/v15/ipch/AutoPCH/34c6c90945b320bc/DATABASE.ipch
+KlientForCpp/.vs/KlientForCpp/v15/ipch/AutoPCH/68fa2f6fcdd2c772/LOGIN.ipch
+KlientForCpp/Debug/KlientForCpp.exe
+KlientForCpp/Debug/KlientForCpp.pdb
+KlientForCpp/KlientForCpp/Debug/vc141.pdb
+*.obj
+ServerCpp/.vs/ServerCpp/v15/.suo
+*.db
