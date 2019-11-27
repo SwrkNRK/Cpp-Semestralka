@@ -270,3 +270,11 @@ KlientForCpp/KlientForCpp/Debug/vc141.pdb
 *.obj
 ServerCpp/.vs/ServerCpp/v15/.suo
 *.db
+ServerCpp/.vs/ServerCpp/v15/.suo
+*.db
+*.obj
+*.log
+*.tlog
+*.idb
+*.pdb
+*.vcxproj

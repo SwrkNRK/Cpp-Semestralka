@@ -152,7 +152,7 @@ namespace Klient {
 			this->buttonRemoveColumn->TabIndex = 6;
 			this->buttonRemoveColumn->Text = L"Remove Column";
 			this->buttonRemoveColumn->UseVisualStyleBackColor = true;
-			this->buttonRemoveColumn->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->buttonRemoveColumn->Click += gcnew System::EventHandler(this, &MyForm::button_Remove_Column_Click);
 			this->buttonRemoveColumn->Visible = false;
 			// 
 			// comboBoxRemoveColumn
@@ -390,7 +390,7 @@ private: System::Void buttonAddColumn_Click(System::Object^  sender, System::Eve
 	this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text); //prida column do comboboxu
 	this->textBoxAddColumn->Text = "";
 }
-private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
+private: System::Void button_Remove_Column_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
 	for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
 	{
 		if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) { 
