@@ -20,7 +20,8 @@ Database::~Database()
 
 int Database::loadTables() {
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
 
 	FILE* srcFile = fopen(path.c_str(), "r");
 	if (srcFile == NULL) { return -1; }
@@ -45,7 +46,8 @@ int Database::loadTables() {
 
 int Database::loadTable(string fileName) {
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Tables\\";
 	path += fileName + ".txt";
 	FILE* srcFile = fopen(path.c_str(), "r");
 	if (srcFile == NULL) { return -1; }
@@ -142,7 +144,8 @@ void addUserParam(int *val, string tmp, UserList *uli) {
 
 int Database::loadUsers() {
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
 
 	FILE* srcFile = fopen(path.c_str(), "r");
 	if (srcFile == NULL) { return -1; }
@@ -183,7 +186,8 @@ int Database::loadUsers() {
 
 int Database::saveTables() {
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Tables\\ListOfTables.txt";
 	FILE* destFile = fopen(path.c_str(), "w");
 	if (destFile == NULL) { return -1; }
 	string tmp;
@@ -200,7 +204,8 @@ int Database::saveTable(int id) {
 	Table *t = tli->findTable(id);
 	if (t == NULL) { return -1; }
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Tables\\";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Tables\\"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Tables\\";
 	printf("%s\n", t->tableName.c_str());
 	path +=  t->tableName+".txt";
 	FILE* destFile = fopen(path.c_str(), "w");
@@ -254,7 +259,8 @@ void Database::registerUser(string nam, string passwd) {
 
 int Database::saveUsers() {
 	//string path = "C:\\Users\\LK\\Desktop\\Cpp semestr\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
-	string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt";
+	//string path = "C:\\Users\\stoli\\CLionProjects\\Cpp-Semestralka\\ServerCpp\\Users\\ListOfUsers.txt"; //Path pre teclast
+	string path = "C:\\Users\\Samuel\\source\\repos\\Cpp-Semestralka\\ServerCpp\\Users\\";
 	FILE* destFile = fopen(path.c_str(), "w");
 	if (destFile == NULL) { return -1; }
 	string tmp;

@@ -1,6 +1,6 @@
 ﻿  Database.cpp
-c:\users\stoli\clionprojects\cpp-semestralka\servercpp\servercpp\database.cpp(119): warning C4715: 'Database::loadTable': not all control paths return a value
-c:\users\stoli\clionprojects\cpp-semestralka\servercpp\servercpp\database.cpp(182): warning C4715: 'Database::loadUsers': not all control paths return a value
-c:\users\stoli\clionprojects\cpp-semestralka\servercpp\servercpp\database.cpp(244): warning C4715: 'Database::saveTable': not all control paths return a value
-c:\users\stoli\clionprojects\cpp-semestralka\servercpp\servercpp\database.cpp(44): warning C4715: 'Database::loadTables': not all control paths return a value
-  ServerCpp.vcxproj -> C:\Users\stoli\CLionProjects\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe
+c:\users\samuel\source\repos\cpp-semestralka\servercpp\servercpp\database.cpp(45): warning C4715: 'Database::loadTables': not all control paths return a value
+c:\users\samuel\source\repos\cpp-semestralka\servercpp\servercpp\database.cpp(121): warning C4715: 'Database::loadTable': not all control paths return a value
+c:\users\samuel\source\repos\cpp-semestralka\servercpp\servercpp\database.cpp(185): warning C4715: 'Database::loadUsers': not all control paths return a value
+c:\users\samuel\source\repos\cpp-semestralka\servercpp\servercpp\database.cpp(249): warning C4715: 'Database::saveTable': not all control paths return a value
+  ServerCpp.vcxproj -> C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe

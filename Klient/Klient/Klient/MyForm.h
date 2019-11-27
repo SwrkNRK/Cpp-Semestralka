@@ -32,6 +32,13 @@ namespace Klient {
 		array<Byte>^ sendBuffer = gcnew array<Byte>(bufferSize);
 
 		array<Byte>^ receiveBuffer = gcnew array<Byte>(bufferSize);
+	private: System::Windows::Forms::Button^  buttonAddColumn;
+	private: System::Windows::Forms::TextBox^  textBoxAddColumn;
+	private: System::Windows::Forms::Button^  buttonRemoveColumn;
+	private: System::Windows::Forms::ComboBox^  comboBoxRemoveColumn;
+
+
+	public:
 
 		NetworkStream^ stream;
 
@@ -70,20 +77,25 @@ namespace Klient {
 			this->ConnectBtn = (gcnew System::Windows::Forms::Button());
 			this->LoadBtn = (gcnew System::Windows::Forms::Button());
 			this->SaveBtn = (gcnew System::Windows::Forms::Button());
+			this->buttonAddColumn = (gcnew System::Windows::Forms::Button());
+			this->textBoxAddColumn = (gcnew System::Windows::Forms::TextBox());
+			this->buttonRemoveColumn = (gcnew System::Windows::Forms::Button());
+			this->comboBoxRemoveColumn = (gcnew System::Windows::Forms::ComboBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(62, 107);
+			this->dataGridView1->Location = System::Drawing::Point(33, 107);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(733, 368);
+			this->dataGridView1->Size = System::Drawing::Size(542, 368);
 			this->dataGridView1->TabIndex = 0;
+			this->dataGridView1->Visible = false;
 			// 
 			// ConnectBtn
 			// 
-			this->ConnectBtn->Location = System::Drawing::Point(78, 22);
+			this->ConnectBtn->Location = System::Drawing::Point(33, 22);
 			this->ConnectBtn->Name = L"ConnectBtn";
 			this->ConnectBtn->Size = System::Drawing::Size(114, 43);
 			this->ConnectBtn->TabIndex = 1;
@@ -93,31 +105,75 @@ namespace Klient {
 			// 
 			// LoadBtn
 			// 
-			this->LoadBtn->Location = System::Drawing::Point(266, 22);
+			this->LoadBtn->Location = System::Drawing::Point(33, 22);
 			this->LoadBtn->Name = L"LoadBtn";
 			this->LoadBtn->Size = System::Drawing::Size(122, 43);
 			this->LoadBtn->TabIndex = 2;
 			this->LoadBtn->Text = L"Load Data";
 			this->LoadBtn->UseVisualStyleBackColor = true;
-			this->LoadBtn->Click += gcnew System::EventHandler(this, &MyForm::LoadBtn_Click);
 			this->LoadBtn->Visible = false;
+			this->LoadBtn->Click += gcnew System::EventHandler(this, &MyForm::LoadBtn_Click);
 			// 
 			// SaveBtn
 			// 
-			this->SaveBtn->Location = System::Drawing::Point(453, 22);
+			this->SaveBtn->Location = System::Drawing::Point(170, 22);
 			this->SaveBtn->Name = L"SaveBtn";
 			this->SaveBtn->Size = System::Drawing::Size(122, 43);
 			this->SaveBtn->TabIndex = 3;
 			this->SaveBtn->Text = L"Save Data";
 			this->SaveBtn->UseVisualStyleBackColor = true;
-			this->SaveBtn->Click += gcnew System::EventHandler(this, &MyForm::SaveBtn_Click);
 			this->SaveBtn->Visible = false;
+			this->SaveBtn->Click += gcnew System::EventHandler(this, &MyForm::SaveBtn_Click);
+			// 
+			// buttonAddColumn
+			// 
+			this->buttonAddColumn->Location = System::Drawing::Point(597, 107);
+			this->buttonAddColumn->Name = L"buttonAddColumn";
+			this->buttonAddColumn->Size = System::Drawing::Size(106, 28);
+			this->buttonAddColumn->TabIndex = 4;
+			this->buttonAddColumn->Text = L"Add Column";
+			this->buttonAddColumn->UseVisualStyleBackColor = true;
+			this->buttonAddColumn->Visible = false;
+			this->buttonAddColumn->Click += gcnew System::EventHandler(this, &MyForm::buttonAddColumn_Click);
+			// 
+			// textBoxAddColumn
+			// 
+			this->textBoxAddColumn->Location = System::Drawing::Point(743, 112);
+			this->textBoxAddColumn->Name = L"textBoxAddColumn";
+			this->textBoxAddColumn->Size = System::Drawing::Size(93, 20);
+			this->textBoxAddColumn->TabIndex = 5;
+			this->textBoxAddColumn->Visible = false;
+			// 
+			// buttonRemoveColumn
+			// 
+			this->buttonRemoveColumn->Location = System::Drawing::Point(597, 155);
+			this->buttonRemoveColumn->Name = L"buttonRemoveColumn";
+			this->buttonRemoveColumn->Size = System::Drawing::Size(106, 29);
+			this->buttonRemoveColumn->TabIndex = 6;
+			this->buttonRemoveColumn->Text = L"Remove Column";
+			this->buttonRemoveColumn->UseVisualStyleBackColor = true;
+			this->buttonRemoveColumn->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->buttonRemoveColumn->Visible = false;
+			// 
+			// comboBoxRemoveColumn
+			// 
+			this->comboBoxRemoveColumn->FormattingEnabled = true;
+			this->comboBoxRemoveColumn->Location = System::Drawing::Point(725, 160);
+			this->comboBoxRemoveColumn->Name = L"comboBoxRemoveColumn";
+			this->comboBoxRemoveColumn->Size = System::Drawing::Size(121, 21);
+			this->comboBoxRemoveColumn->TabIndex = 7;
+			this->comboBoxRemoveColumn->Visible = false;
+			
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(873, 532);
+			this->Controls->Add(this->comboBoxRemoveColumn);
+			this->Controls->Add(this->buttonRemoveColumn);
+			this->Controls->Add(this->textBoxAddColumn);
+			this->Controls->Add(this->buttonAddColumn);
 			this->Controls->Add(this->SaveBtn);
 			this->Controls->Add(this->LoadBtn);
 			this->Controls->Add(this->ConnectBtn);
@@ -126,6 +182,7 @@ namespace Klient {
 			this->Text = L"MyForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 
@@ -140,6 +197,11 @@ namespace Klient {
 		ConnectBtn->Visible = false;
 		this->LoadBtn->Visible = true;
 		this->SaveBtn->Visible = true;
+		this->buttonAddColumn->Visible = true;
+		this->textBoxAddColumn->Visible = true;
+		this->dataGridView1->Visible = true;
+		this->comboBoxRemoveColumn->Visible = true;
+		this->buttonRemoveColumn->Visible = true;
 	}
 
 			 int strToEnum(String^ str) {
@@ -279,6 +341,11 @@ namespace Klient {
 
 		loadTableByStr(receiveBuffer);
 
+		//Program precita nazvy v columns a hodi ich do comboboxu
+		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) 
+		{
+			this->comboBoxRemoveColumn->Items->Add(this->dataGridView1->Columns[i]->Name->ToString());
+		}
 
 	}
 
@@ -316,6 +383,21 @@ private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^ 
 	
 	if (!getDataFromServer()->Contains("SAVED")) {
 		//TODO popup okno pre klienta, nepodarilo sa uloži dáta na server
+	}
+}
+private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->dataGridView1->Columns->Add(textBoxAddColumn->Text, textBoxAddColumn->Text); //prida column do datagridview
+	this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text); //prida column do comboboxu
+	this->textBoxAddColumn->Text = "";
+}
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
+	for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
+	{
+		if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) { 
+			this->dataGridView1->Columns->RemoveAt(i);
+			this->comboBoxRemoveColumn->Items->Remove(this->comboBoxRemoveColumn->SelectedItem);
+			break;
+		}		
 	}
 }
 };
