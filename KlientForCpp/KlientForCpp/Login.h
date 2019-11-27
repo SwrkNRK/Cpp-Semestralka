@@ -229,7 +229,7 @@ namespace KlientForCpp {
 
 		this->Hide();
 		Database^ d = gcnew Database;
-		d->tryToConnect();
+		//d->tryToConnect();
 		d->ShowDialog();
 		this->Close();
 }
