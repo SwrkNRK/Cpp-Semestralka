@@ -20,7 +20,6 @@ public:
 	Database* dt;
 
 private:
-
 };
 
 
