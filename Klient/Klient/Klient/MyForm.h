@@ -54,6 +54,9 @@ namespace Klient {
 	private: System::Windows::Forms::TabPage^  tabPageCalendar;
 
 	private: System::Windows::Forms::MonthCalendar^  monthCalendar1;
+	private: System::Windows::Forms::LinkLabel^  linkLabelHelp;
+	private: System::Windows::Forms::ListBox^  listBox1;
+	private: System::Windows::Forms::Label^  label6;
 
 
 
@@ -110,13 +113,16 @@ namespace Klient {
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
+			this->linkLabelHelp = (gcnew System::Windows::Forms::LinkLabel());
 			this->tabPageNew = (gcnew System::Windows::Forms::TabPage());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->textBoxNewName = (gcnew System::Windows::Forms::TextBox());
 			this->buttonCreate = (gcnew System::Windows::Forms::Button());
+			this->textBoxNewName = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->tabPageCalendar = (gcnew System::Windows::Forms::TabPage());
 			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -240,7 +246,7 @@ namespace Klient {
 			this->groupBoxColumns->Controls->Add(this->textBoxAddColumn);
 			this->groupBoxColumns->Controls->Add(this->comboBoxColumnType);
 			this->groupBoxColumns->Controls->Add(this->buttonAddColumn);
-			this->groupBoxColumns->Location = System::Drawing::Point(840, 175);
+			this->groupBoxColumns->Location = System::Drawing::Point(837, 253);
 			this->groupBoxColumns->Name = L"groupBoxColumns";
 			this->groupBoxColumns->Size = System::Drawing::Size(282, 273);
 			this->groupBoxColumns->TabIndex = 11;
@@ -261,7 +267,7 @@ namespace Klient {
 			// 
 			this->groupBoxServer->Controls->Add(this->LoadBtn);
 			this->groupBoxServer->Controls->Add(this->SaveBtn);
-			this->groupBoxServer->Location = System::Drawing::Point(840, 82);
+			this->groupBoxServer->Location = System::Drawing::Point(837, 160);
 			this->groupBoxServer->Name = L"groupBoxServer";
 			this->groupBoxServer->Size = System::Drawing::Size(282, 87);
 			this->groupBoxServer->TabIndex = 12;
@@ -282,6 +288,9 @@ namespace Klient {
 			// 
 			// tabPageDatabase
 			// 
+			this->tabPageDatabase->Controls->Add(this->listBox1);
+			this->tabPageDatabase->Controls->Add(this->label6);
+			this->tabPageDatabase->Controls->Add(this->linkLabelHelp);
 			this->tabPageDatabase->Controls->Add(this->dataGridView1);
 			this->tabPageDatabase->Controls->Add(this->groupBoxColumns);
 			this->tabPageDatabase->Controls->Add(this->groupBoxServer);
@@ -292,6 +301,17 @@ namespace Klient {
 			this->tabPageDatabase->TabIndex = 0;
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
+			// 
+			// linkLabelHelp
+			// 
+			this->linkLabelHelp->AutoSize = true;
+			this->linkLabelHelp->Location = System::Drawing::Point(994, 683);
+			this->linkLabelHelp->Name = L"linkLabelHelp";
+			this->linkLabelHelp->Size = System::Drawing::Size(125, 15);
+			this->linkLabelHelp->TabIndex = 13;
+			this->linkLabelHelp->TabStop = true;
+			this->linkLabelHelp->Text = L"Need help \? Click here!";
+			this->linkLabelHelp->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::linkLabelHelp_LinkClicked);
 			// 
 			// tabPageNew
 			// 
@@ -307,16 +327,21 @@ namespace Klient {
 			this->tabPageNew->Text = L"New";
 			this->tabPageNew->UseVisualStyleBackColor = true;
 			// 
-			// label4
+			// buttonCreate
 			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft JhengHei", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(32, 38);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(231, 24);
-			this->label4->TabIndex = 0;
-			this->label4->Text = L"Creating a new database";
+			this->buttonCreate->Location = System::Drawing::Point(95, 140);
+			this->buttonCreate->Name = L"buttonCreate";
+			this->buttonCreate->Size = System::Drawing::Size(75, 23);
+			this->buttonCreate->TabIndex = 3;
+			this->buttonCreate->Text = L"Create";
+			this->buttonCreate->UseVisualStyleBackColor = true;
+			// 
+			// textBoxNewName
+			// 
+			this->textBoxNewName->Location = System::Drawing::Point(95, 94);
+			this->textBoxNewName->Name = L"textBoxNewName";
+			this->textBoxNewName->Size = System::Drawing::Size(134, 22);
+			this->textBoxNewName->TabIndex = 2;
 			// 
 			// label5
 			// 
@@ -327,21 +352,16 @@ namespace Klient {
 			this->label5->TabIndex = 1;
 			this->label5->Text = L"Name:";
 			// 
-			// textBoxNewName
+			// label4
 			// 
-			this->textBoxNewName->Location = System::Drawing::Point(95, 94);
-			this->textBoxNewName->Name = L"textBoxNewName";
-			this->textBoxNewName->Size = System::Drawing::Size(134, 22);
-			this->textBoxNewName->TabIndex = 2;
-			// 
-			// buttonCreate
-			// 
-			this->buttonCreate->Location = System::Drawing::Point(95, 140);
-			this->buttonCreate->Name = L"buttonCreate";
-			this->buttonCreate->Size = System::Drawing::Size(75, 23);
-			this->buttonCreate->TabIndex = 3;
-			this->buttonCreate->Text = L"Create";
-			this->buttonCreate->UseVisualStyleBackColor = true;
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft JhengHei", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(32, 38);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(231, 24);
+			this->label4->TabIndex = 0;
+			this->label4->Text = L"Creating a new database";
 			// 
 			// tabPageCalendar
 			// 
@@ -360,6 +380,28 @@ namespace Klient {
 			this->monthCalendar1->Location = System::Drawing::Point(229, 53);
 			this->monthCalendar1->Name = L"monthCalendar1";
 			this->monthCalendar1->TabIndex = 0;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(840, 19);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(133, 15);
+			this->label6->TabIndex = 14;
+			this->label6->Text = L"Choose database to edit";
+			// 
+			// listBox1
+			// 
+			this->listBox1->FormattingEnabled = true;
+			this->listBox1->ItemHeight = 15;
+			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+				L"Random database name1", L"Random database name2",
+					L"Random database name3", L"Random database name4", L"Random database name5"
+			});
+			this->listBox1->Location = System::Drawing::Point(843, 38);
+			this->listBox1->Name = L"listBox1";
+			this->listBox1->Size = System::Drawing::Size(276, 94);
+			this->listBox1->TabIndex = 15;
 			// 
 			// MyForm
 			// 
@@ -382,6 +424,7 @@ namespace Klient {
 			this->groupBoxServer->ResumeLayout(false);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPageDatabase->ResumeLayout(false);
+			this->tabPageDatabase->PerformLayout();
 			this->tabPageNew->ResumeLayout(false);
 			this->tabPageNew->PerformLayout();
 			this->tabPageCalendar->ResumeLayout(false);
@@ -641,6 +684,9 @@ private: System::Void dataGridView1_DataError(System::Object^  sender, System::W
 private: System::Void groupBoxColumns_Enter(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void linkLabelHelp_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e) {
+	System::Diagnostics::Process::Start("www.google.com");
 }
 };
 }
