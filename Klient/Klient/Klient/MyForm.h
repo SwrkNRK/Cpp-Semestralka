@@ -662,16 +662,36 @@ private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^ 
 	}
 }
 private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
-	addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
-	this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
+	String^ str = "ADDCOLUMN:111:";
+	str += textBoxAddColumn->Text + ":";
+	str += comboBoxColumnType->SelectedItem->ToString()+"\0";
+	
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+
+	if (getDataFromServer()->Contains("ADDEDCOLUMN")) {
+		this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
+		addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
+		this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
+	} else { //TODO popup okno nepodarilo sa pridaù stÂpec
+			}
+
+
 }
 private: System::Void button_Remove_Column_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
 	for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
 	{
-		if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) { 
-			this->dataGridView1->Columns->RemoveAt(i);
-			this->comboBoxRemoveColumn->Items->Remove(this->comboBoxRemoveColumn->SelectedItem);
+		if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) {
+			String^ str = "REMOVECOL:111:" + i.ToString() + "\0";
+
+			sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+			stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+			if (getDataFromServer()->Contains("COLREMOVED")) {
+				this->dataGridView1->Columns->RemoveAt(i);
+				this->comboBoxRemoveColumn->Items->Remove(this->comboBoxRemoveColumn->SelectedItem);
+			}
 			break;
 		}		
 	}

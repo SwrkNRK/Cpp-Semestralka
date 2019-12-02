@@ -278,3 +278,13 @@ ServerCpp/.vs/ServerCpp/v15/.suo
 *.idb
 *.pdb
 *.vcxproj
+*.db
+ServerCpp/.vs/ServerCpp/v15/.suo
+*.obj
+*.log
+*.tlog
+*.tlog
+*.lastbuildstate
+*.idb
+*.pdb
+*.vcxproj
