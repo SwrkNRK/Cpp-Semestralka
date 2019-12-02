@@ -1,4 +1,1 @@
-﻿  Commands.cpp
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(63): warning C4715: 'Commands::processMsg': not all control paths return a value
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(36): warning C4715: 'Commands::strToEnum': not all control paths return a value
-  ServerCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe
+﻿  ServerCpp.vcxproj -> C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe

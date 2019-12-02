@@ -57,6 +57,11 @@ namespace Klient {
 	private: System::Windows::Forms::LinkLabel^  linkLabelHelp;
 	private: System::Windows::Forms::ListBox^  listBox1;
 	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::TextBox^  textBoxUsername;
+	private: System::Windows::Forms::TextBox^  textBoxPassword;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::GroupBox^  groupBoxLogin;
 
 
 
@@ -79,7 +84,9 @@ namespace Klient {
 			}
 		}
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
-	private: System::Windows::Forms::Button^  ConnectBtn;
+	private: System::Windows::Forms::Button^  buttonLogin;
+
+
 	private: System::Windows::Forms::Button^  LoadBtn;
 	private: System::Windows::Forms::Button^  SaveBtn;
 	protected:
@@ -98,7 +105,7 @@ namespace Klient {
 		void InitializeComponent(void)
 		{
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->ConnectBtn = (gcnew System::Windows::Forms::Button());
+			this->buttonLogin = (gcnew System::Windows::Forms::Button());
 			this->LoadBtn = (gcnew System::Windows::Forms::Button());
 			this->SaveBtn = (gcnew System::Windows::Forms::Button());
 			this->buttonAddColumn = (gcnew System::Windows::Forms::Button());
@@ -113,6 +120,8 @@ namespace Klient {
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
+			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->linkLabelHelp = (gcnew System::Windows::Forms::LinkLabel());
 			this->tabPageNew = (gcnew System::Windows::Forms::TabPage());
 			this->buttonCreate = (gcnew System::Windows::Forms::Button());
@@ -121,8 +130,11 @@ namespace Klient {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->tabPageCalendar = (gcnew System::Windows::Forms::TabPage());
 			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->textBoxUsername = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxPassword = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -130,6 +142,7 @@ namespace Klient {
 			this->tabPageDatabase->SuspendLayout();
 			this->tabPageNew->SuspendLayout();
 			this->tabPageCalendar->SuspendLayout();
+			this->groupBoxLogin->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
@@ -142,15 +155,15 @@ namespace Klient {
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->DataError += gcnew System::Windows::Forms::DataGridViewDataErrorEventHandler(this, &MyForm::dataGridView1_DataError);
 			// 
-			// ConnectBtn
+			// buttonLogin
 			// 
-			this->ConnectBtn->Location = System::Drawing::Point(43, 55);
-			this->ConnectBtn->Name = L"ConnectBtn";
-			this->ConnectBtn->Size = System::Drawing::Size(133, 49);
-			this->ConnectBtn->TabIndex = 1;
-			this->ConnectBtn->Text = L"Connect";
-			this->ConnectBtn->UseVisualStyleBackColor = true;
-			this->ConnectBtn->Click += gcnew System::EventHandler(this, &MyForm::ConnectBtn_Click);
+			this->buttonLogin->Location = System::Drawing::Point(103, 171);
+			this->buttonLogin->Name = L"buttonLogin";
+			this->buttonLogin->Size = System::Drawing::Size(133, 49);
+			this->buttonLogin->TabIndex = 1;
+			this->buttonLogin->Text = L"Login";
+			this->buttonLogin->UseVisualStyleBackColor = true;
+			this->buttonLogin->Click += gcnew System::EventHandler(this, &MyForm::buttonLogin_Click);
 			// 
 			// LoadBtn
 			// 
@@ -279,7 +292,7 @@ namespace Klient {
 			this->tabControl1->Controls->Add(this->tabPageDatabase);
 			this->tabControl1->Controls->Add(this->tabPageNew);
 			this->tabControl1->Controls->Add(this->tabPageCalendar);
-			this->tabControl1->Location = System::Drawing::Point(3, 2);
+			this->tabControl1->Location = System::Drawing::Point(2, 0);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(1136, 736);
@@ -291,9 +304,9 @@ namespace Klient {
 			this->tabPageDatabase->Controls->Add(this->listBox1);
 			this->tabPageDatabase->Controls->Add(this->label6);
 			this->tabPageDatabase->Controls->Add(this->linkLabelHelp);
-			this->tabPageDatabase->Controls->Add(this->dataGridView1);
 			this->tabPageDatabase->Controls->Add(this->groupBoxColumns);
 			this->tabPageDatabase->Controls->Add(this->groupBoxServer);
+			this->tabPageDatabase->Controls->Add(this->dataGridView1);
 			this->tabPageDatabase->Location = System::Drawing::Point(4, 24);
 			this->tabPageDatabase->Name = L"tabPageDatabase";
 			this->tabPageDatabase->Padding = System::Windows::Forms::Padding(3);
@@ -301,6 +314,28 @@ namespace Klient {
 			this->tabPageDatabase->TabIndex = 0;
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
+			// 
+			// listBox1
+			// 
+			this->listBox1->FormattingEnabled = true;
+			this->listBox1->ItemHeight = 15;
+			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+				L"Random database name1", L"Random database name2",
+					L"Random database name3", L"Random database name4", L"Random database name5"
+			});
+			this->listBox1->Location = System::Drawing::Point(843, 38);
+			this->listBox1->Name = L"listBox1";
+			this->listBox1->Size = System::Drawing::Size(276, 94);
+			this->listBox1->TabIndex = 15;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(840, 19);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(133, 15);
+			this->label6->TabIndex = 14;
+			this->label6->Text = L"Choose database to edit";
 			// 
 			// linkLabelHelp
 			// 
@@ -381,27 +416,55 @@ namespace Klient {
 			this->monthCalendar1->Name = L"monthCalendar1";
 			this->monthCalendar1->TabIndex = 0;
 			// 
-			// label6
+			// textBoxUsername
 			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(840, 19);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(133, 15);
-			this->label6->TabIndex = 14;
-			this->label6->Text = L"Choose database to edit";
+			this->textBoxUsername->Location = System::Drawing::Point(86, 67);
+			this->textBoxUsername->Name = L"textBoxUsername";
+			this->textBoxUsername->Size = System::Drawing::Size(167, 22);
+			this->textBoxUsername->TabIndex = 14;
 			// 
-			// listBox1
+			// textBoxPassword
 			// 
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->ItemHeight = 15;
-			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
-				L"Random database name1", L"Random database name2",
-					L"Random database name3", L"Random database name4", L"Random database name5"
-			});
-			this->listBox1->Location = System::Drawing::Point(843, 38);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(276, 94);
-			this->listBox1->TabIndex = 15;
+			this->textBoxPassword->Location = System::Drawing::Point(86, 124);
+			this->textBoxPassword->Name = L"textBoxPassword";
+			this->textBoxPassword->Size = System::Drawing::Size(167, 22);
+			this->textBoxPassword->TabIndex = 15;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft JhengHei", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(129, 45);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(80, 19);
+			this->label7->TabIndex = 16;
+			this->label7->Text = L"Username";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft JhengHei", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label8->Location = System::Drawing::Point(131, 102);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(77, 19);
+			this->label8->TabIndex = 17;
+			this->label8->Text = L"Password";
+			// 
+			// groupBoxLogin
+			// 
+			this->groupBoxLogin->Controls->Add(this->textBoxUsername);
+			this->groupBoxLogin->Controls->Add(this->label8);
+			this->groupBoxLogin->Controls->Add(this->buttonLogin);
+			this->groupBoxLogin->Controls->Add(this->label7);
+			this->groupBoxLogin->Controls->Add(this->textBoxPassword);
+			this->groupBoxLogin->Location = System::Drawing::Point(430, 232);
+			this->groupBoxLogin->Name = L"groupBoxLogin";
+			this->groupBoxLogin->Size = System::Drawing::Size(332, 271);
+			this->groupBoxLogin->TabIndex = 18;
+			this->groupBoxLogin->TabStop = false;
+			this->groupBoxLogin->Text = L"Login";
 			// 
 			// MyForm
 			// 
@@ -410,7 +473,7 @@ namespace Klient {
 			this->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->ClientSize = System::Drawing::Size(1141, 738);
 			this->Controls->Add(this->tabControl1);
-			this->Controls->Add(this->ConnectBtn);
+			this->Controls->Add(this->groupBoxLogin);
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft JhengHei", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
@@ -418,6 +481,7 @@ namespace Klient {
 			this->Name = L"MyForm";
 			this->Text = L"Database master";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			this->Click += gcnew System::EventHandler(this, &MyForm::buttonLogin_Click);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->groupBoxColumns->ResumeLayout(false);
 			this->groupBoxColumns->PerformLayout();
@@ -428,6 +492,8 @@ namespace Klient {
 			this->tabPageNew->ResumeLayout(false);
 			this->tabPageNew->PerformLayout();
 			this->tabPageCalendar->ResumeLayout(false);
+			this->groupBoxLogin->ResumeLayout(false);
+			this->groupBoxLogin->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -436,12 +502,12 @@ namespace Klient {
 
 
 #pragma endregion
-	private: System::Void ConnectBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) {
 		
 		connect(); //pripojenie na databazu vid o kusok nizsie
 
 		//ZOBRAZOVANIE PRVKOV AFTER CONNECT
-		ConnectBtn->Visible = false;
+		buttonLogin->Visible = false;
 		/* Moze byt zakomentovane lebo vsetky elementy su sucastov tabControl1
 		this->LoadBtn->Visible = true;
 		this->SaveBtn->Visible = true;
@@ -457,6 +523,7 @@ namespace Klient {
 		this->groupBoxServer->Visible = true;
 		 */
 		this->tabControl1->Visible = true;
+		this->groupBoxLogin->Visible = false;
 	}
 
 			 void connect() {
@@ -708,5 +775,6 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 private: System::Void linkLabelHelp_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e) {
 	System::Diagnostics::Process::Start("www.google.com");
 }
+
 };
 }
