@@ -33,6 +33,14 @@ int Commands::strToEnum(string str) {
 		return REMOVECOLUMN;
 	}
 
+	if (str == "LOGIN") {
+		return LOGIN;
+	}
+
+	if (str == "GETUSERTABLES") {
+		return GETUSERTABLES;
+	}
+
 }
 
 string Commands::processMsg(string str) {  //LOAD:111
@@ -40,8 +48,8 @@ string Commands::processMsg(string str) {  //LOAD:111
 	stringstream ss(str);
 	char delimiter = ':';
 	string tok = "";
-		
-	while (getline(ss, tok, delimiter))  {
+
+	while (getline(ss, tok, delimiter)) {
 		s.push_back(tok);
 	}
 
@@ -58,7 +66,15 @@ string Commands::processMsg(string str) {  //LOAD:111
 
 	case 4:
 		return removeColumn(s);
+
+	case 5:
+		return connectUser(s);
+
+	case 6:
+		return getUserTables(atoi(s[1].c_str()));
+
 	}
+
 
 }
 
@@ -176,4 +192,39 @@ string Commands::removeColumn(vector<string> str) {
 	removeColAtID(t, i);
 
 	return "COLREMOVED";
+}
+
+string Commands::connectUser(vector<string> str) {
+	int name = 1;
+	int pass = 2;
+	User *u;
+	for (int i = 0; i < dt->uli->getUserCount(); i++) {
+		u = dt->uli->getUserAtPos(i);
+		if (u->name == str[name] && u->password == str[pass]) {
+			return "CONNECTED:" + to_string(u->userID);
+		}
+	}
+	return "INVALIDLOGIN";
+}
+
+string Commands::getUserTables(int userID) {
+	User* u = dt->uli->getUser(userID);
+	string str = "";
+
+	for (int i = 0; i < dt->tli->getTableCount(); i++) {
+		if (dt->tli->getTable(i)->owner->userID == u->userID) {
+			str += dt->tli->getTable(i)->tableName;
+			str += "," + to_string(dt->tli->getTable(i)->tableID) + ":";
+		}
+	}
+	if (str == "") {
+		return "NOTABLES";
+	}
+	else {
+		str.pop_back();
+		str += "*";
+		return str;
+	}
+
+
 }

@@ -25,7 +25,7 @@ namespace Klient {
 			//
 		}
 
-		TcpClient^ myTcpClient;
+		TcpClient^ myTcpClient = __nullptr;
 
 		int bufferSize = 1024;
 
@@ -62,6 +62,7 @@ namespace Klient {
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
 	private: System::Windows::Forms::GroupBox^  groupBoxLogin;
+	private: System::Windows::Forms::Label^  labelConnectedUserN;
 
 
 
@@ -135,6 +136,7 @@ namespace Klient {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
+			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -301,6 +303,7 @@ namespace Klient {
 			// 
 			// tabPageDatabase
 			// 
+			this->tabPageDatabase->Controls->Add(this->labelConnectedUserN);
 			this->tabPageDatabase->Controls->Add(this->listBox1);
 			this->tabPageDatabase->Controls->Add(this->label6);
 			this->tabPageDatabase->Controls->Add(this->linkLabelHelp);
@@ -427,6 +430,7 @@ namespace Klient {
 			// 
 			this->textBoxPassword->Location = System::Drawing::Point(86, 124);
 			this->textBoxPassword->Name = L"textBoxPassword";
+			this->textBoxPassword->PasswordChar = '*';
 			this->textBoxPassword->Size = System::Drawing::Size(167, 22);
 			this->textBoxPassword->TabIndex = 15;
 			// 
@@ -466,6 +470,15 @@ namespace Klient {
 			this->groupBoxLogin->TabStop = false;
 			this->groupBoxLogin->Text = L"Login";
 			// 
+			// ConnectedUserN
+			// 
+			this->labelConnectedUserN->AutoSize = true;
+			this->labelConnectedUserN->Location = System::Drawing::Point(1020, 6);
+			this->labelConnectedUserN->Name = L"ConnectedUserN";
+			this->labelConnectedUserN->Size = System::Drawing::Size(30, 15);
+			this->labelConnectedUserN->TabIndex = 16;
+			this->labelConnectedUserN->Text = L"User";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -499,38 +512,61 @@ namespace Klient {
 		}
 
 		DataTable^ table = gcnew DataTable;
+		bool loged = false;
+		int userID = 0;
+		array<System::String ^>^ tableNames = gcnew array<System::String ^>(10);
+		array<System::Int32 ^>^ tableIDs = gcnew array<System::Int32 ^>(10);
 
 
 #pragma endregion
 	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) {
-		
-		connect(); //pripojenie na databazu vid o kusok nizsie
 
+		connect(); //pripojenie na databazu vid o kusok nizsie
+		//label7 = username
+		//label8 = password
+		if (!loged) { return; }
 		//ZOBRAZOVANIE PRVKOV AFTER CONNECT
 		buttonLogin->Visible = false;
-		/* Moze byt zakomentovane lebo vsetky elementy su sucastov tabControl1
-		this->LoadBtn->Visible = true;
-		this->SaveBtn->Visible = true;
-		this->buttonAddColumn->Visible = true;
-		this->textBoxAddColumn->Visible = true;
-		this->dataGridView1->Visible = true;
-		this->comboBoxRemoveColumn->Visible = true;
-		this->buttonRemoveColumn->Visible = true;
-		this->comboBoxColumnType->Visible = true;
-		this->label1->Visible = true;
-		this->label2->Visible = true;
-		this->groupBoxColumns->Visible = true;
-		this->groupBoxServer->Visible = true;
-		 */
+
 		this->tabControl1->Visible = true;
 		this->groupBoxLogin->Visible = false;
+
+
+
 	}
 
 			 void connect() {
 				 try
 				 {
-					 myTcpClient = gcnew TcpClient("localhost", 12150);
-					 stream = myTcpClient->GetStream();
+					 if (myTcpClient == nullptr) {
+						 myTcpClient = gcnew TcpClient("localhost", 12150);
+						 stream = myTcpClient->GetStream();
+					 }
+					 String^ str = "LOGIN:";
+					 str += textBoxUsername->Text;
+					 str += ":" + textBoxPassword->Text + "\0";
+
+					 sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+					 stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+					 if (getDataFromServer()->Contains("CONNECTED")) {
+						 str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
+						 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
+						 splitedStr = str->Split(':');
+						 userID = Convert::ToInt32(splitedStr[1]);
+						 labelConnectedUserN->Text = textBoxUsername->Text;
+						 loged = true;
+					 }
+					 else {
+						 stream->Close();
+						 myTcpClient->Close();
+						 myTcpClient = nullptr;
+						 stream = nullptr;
+
+						 //TODO pop up okno bad username or password
+					 }
+
+
 				 }
 				 catch (System::Exception ^e)
 				 {
@@ -546,6 +582,21 @@ namespace Klient {
 
 				 }
 			 }
+
+			 void voidGetUserTables() {
+				 String^ str = "GETUSERTABLES:";
+				 str += userID.ToString() + "\0";
+
+				 sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+				 stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+				 
+				 
+				 str = getActualData();
+				 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
+				 splitedStr = str->Split(':');
+
+			 }
+
 
 			 int strToEnum(String^ str) {
 				 str = str->ToLower();

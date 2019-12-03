@@ -1,5 +1,6 @@
 16
-Cuky Luky 11
-Jurko Programatoris 12
-Robko Manazeris 13
-Samko SupportMasta 14
+cuky luky 11
+jurko programatoris 12
+robko manazeris 13
+samko supportmasta 14
+c c 15

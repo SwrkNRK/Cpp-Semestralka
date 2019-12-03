@@ -42,6 +42,10 @@ User* UserList::getUser(int id) {
 	return users[id];
 }
 
+User* UserList::getUserAtPos(int pos) {
+	return users[pos];
+}
+
 void UserList::delUser(int id) {
 	users[id]->~User();
 	delete users[id];
