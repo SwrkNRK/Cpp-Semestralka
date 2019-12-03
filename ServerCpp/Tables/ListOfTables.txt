@@ -1,1 +1,2 @@
 MyTable
+CTable

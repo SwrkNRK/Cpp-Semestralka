@@ -55,12 +55,20 @@ int Database::loadTable(string fileName) {
 	string tmp;
 
 	Table *t = tli->getTable(tli->getTableCount());
+	int pomCounter = 0;
 	do {
 		c = fgetc(srcFile);
 
 		if ((char)c == ' ') {
-			t->tableName = tmp;
-			tmp = "";
+			if (pomCounter == 0) {
+				t->tableName = tmp;
+				tmp = "";
+				pomCounter++;
+			}
+			else if (pomCounter == 1) {
+				t->owner = uli->findUser(atoi(tmp.c_str()));
+				tmp = "";
+			}
 
 		} else if ((char)c == '\n') {
 			t->tableID = atoi(tmp.c_str());
@@ -121,7 +129,7 @@ int Database::loadTable(string fileName) {
 }
 
 void addUserParam(int *val, string tmp, UserList *uli) {
-	User *u = uli->getUser(uli->getUserCount());
+	User *u = uli->getUserAtPos(uli->getUserCount());
 
 	switch (*val)
 	{
@@ -181,7 +189,7 @@ int Database::loadUsers() {
 		}
 
 	} while (c != EOF);
-	printf("%d\n", uli->getUser(3)->userID);
+	printf("%d\n", uli->getUserAtPos(3)->userID);
 	fclose(srcFile);
 }
 
@@ -253,7 +261,7 @@ int Database::saveTable(int id) {
 
 
 void Database::registerUser(string nam, string passwd) {
-	uli->getUser(uli->getUserCount())->~User();
+	uli->getUserAtPos(uli->getUserCount())->~User();
 	User* u = new User(nam, passwd, uli->getUserIDCounter());
 	uli->setUser(u, uli->getUserCount());
 	uli->addUserIDCounter();
@@ -273,11 +281,11 @@ int Database::saveUsers() {
 	fputs(tmp.c_str(), destFile);
 	
 	for (int i = 0; i < uli->getUserCount(); i++) {
-		tmp = uli->getUser(i)->name;
+		tmp = uli->getUserAtPos(i)->name;
 		tmp += " ";
-		tmp += uli->getUser(i)->password;
+		tmp += uli->getUserAtPos(i)->password;
 		tmp += " ";
-		tmp += to_string(uli->getUser(i)->userID);
+		tmp += to_string(uli->getUserAtPos(i)->userID);
 		tmp += "\n";
 		fputs(tmp.c_str(), destFile);
 

@@ -1,0 +1,5 @@
+CTable 15 112
+Meno:string Priezvisko:string ide:int 
+Jur rota 1
+Luk Cuk 2
+Sam Pas 3

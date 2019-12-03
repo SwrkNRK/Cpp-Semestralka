@@ -38,8 +38,13 @@ int UserList::getUserIDCounter() {
 	return userIDCounter;
 }
 
-User* UserList::getUser(int id) {
-	return users[id];
+User* UserList::findUser(int id) {
+	for (int i = 0; i < userCount; i++) {
+		if (users[i]->userID == id) {
+			return users[i];
+		}
+	}
+	return nullptr;
 }
 
 User* UserList::getUserAtPos(int pos) {

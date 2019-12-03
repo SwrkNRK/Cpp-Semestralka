@@ -16,7 +16,7 @@ public:
 	int getUserCount();
 	int getUserIDCounter();
 
-	User* getUser(int id);
+	User* findUser(int id);
 	User* getUserAtPos(int position);
 	void setUser(User *user, int id);
 	void delUser(int id);

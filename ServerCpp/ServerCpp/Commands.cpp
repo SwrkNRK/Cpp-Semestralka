@@ -208,7 +208,7 @@ string Commands::connectUser(vector<string> str) {
 }
 
 string Commands::getUserTables(int userID) {
-	User* u = dt->uli->getUser(userID);
+	User* u = dt->uli->findUser(userID);
 	string str = "";
 
 	for (int i = 0; i < dt->tli->getTableCount(); i++) {
@@ -222,7 +222,6 @@ string Commands::getUserTables(int userID) {
 	}
 	else {
 		str.pop_back();
-		str += "*";
 		return str;
 	}
 

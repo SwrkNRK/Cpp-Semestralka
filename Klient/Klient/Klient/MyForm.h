@@ -126,8 +126,11 @@ namespace Klient {
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
-			this->buttonSearch = (gcnew System::Windows::Forms::Button());
+			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
+			this->groupBoxSearch = (gcnew System::Windows::Forms::GroupBox());
+			this->buttonReset = (gcnew System::Windows::Forms::Button());
 			this->textBoxSearch = (gcnew System::Windows::Forms::TextBox());
+			this->buttonSearch = (gcnew System::Windows::Forms::Button());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->linkLabelHelp = (gcnew System::Windows::Forms::LinkLabel());
@@ -143,18 +146,15 @@ namespace Klient {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
-			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
-			this->groupBoxSearch = (gcnew System::Windows::Forms::GroupBox());
-			this->buttonReset = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
 			this->tabControl1->SuspendLayout();
 			this->tabPageDatabase->SuspendLayout();
+			this->groupBoxSearch->SuspendLayout();
 			this->tabPageNew->SuspendLayout();
 			this->tabPageCalendar->SuspendLayout();
 			this->groupBoxLogin->SuspendLayout();
-			this->groupBoxSearch->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
@@ -329,6 +329,44 @@ namespace Klient {
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
 			// 
+			// labelConnectedUserN
+			// 
+			this->labelConnectedUserN->AutoSize = true;
+			this->labelConnectedUserN->Location = System::Drawing::Point(1020, 6);
+			this->labelConnectedUserN->Name = L"labelConnectedUserN";
+			this->labelConnectedUserN->Size = System::Drawing::Size(30, 15);
+			this->labelConnectedUserN->TabIndex = 16;
+			this->labelConnectedUserN->Text = L"User";
+			// 
+			// groupBoxSearch
+			// 
+			this->groupBoxSearch->Controls->Add(this->buttonReset);
+			this->groupBoxSearch->Controls->Add(this->textBoxSearch);
+			this->groupBoxSearch->Controls->Add(this->buttonSearch);
+			this->groupBoxSearch->Location = System::Drawing::Point(837, 532);
+			this->groupBoxSearch->Name = L"groupBoxSearch";
+			this->groupBoxSearch->Size = System::Drawing::Size(282, 56);
+			this->groupBoxSearch->TabIndex = 18;
+			this->groupBoxSearch->TabStop = false;
+			this->groupBoxSearch->Text = L"Search";
+			// 
+			// buttonReset
+			// 
+			this->buttonReset->Location = System::Drawing::Point(193, 20);
+			this->buttonReset->Name = L"buttonReset";
+			this->buttonReset->Size = System::Drawing::Size(75, 23);
+			this->buttonReset->TabIndex = 18;
+			this->buttonReset->Text = L"Reset";
+			this->buttonReset->UseVisualStyleBackColor = true;
+			this->buttonReset->Click += gcnew System::EventHandler(this, &MyForm::buttonReset_Click);
+			// 
+			// textBoxSearch
+			// 
+			this->textBoxSearch->Location = System::Drawing::Point(6, 21);
+			this->textBoxSearch->Name = L"textBoxSearch";
+			this->textBoxSearch->Size = System::Drawing::Size(100, 22);
+			this->textBoxSearch->TabIndex = 16;
+			// 
 			// buttonSearch
 			// 
 			this->buttonSearch->Location = System::Drawing::Point(112, 20);
@@ -339,25 +377,15 @@ namespace Klient {
 			this->buttonSearch->UseVisualStyleBackColor = true;
 			this->buttonSearch->Click += gcnew System::EventHandler(this, &MyForm::buttonSearch_Click);
 			// 
-			// textBoxSearch
-			// 
-			this->textBoxSearch->Location = System::Drawing::Point(6, 21);
-			this->textBoxSearch->Name = L"textBoxSearch";
-			this->textBoxSearch->Size = System::Drawing::Size(100, 22);
-			this->textBoxSearch->TabIndex = 16;
-			// 
 			// listBox1
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 15;
-			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
-				L"Random database name1", L"Random database name2",
-					L"Random database name3", L"Random database name4", L"Random database name5"
-			});
 			this->listBox1->Location = System::Drawing::Point(843, 38);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(276, 94);
 			this->listBox1->TabIndex = 15;
+			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::changeCurrentTable);
 			// 
 			// label6
 			// 
@@ -498,36 +526,6 @@ namespace Klient {
 			this->groupBoxLogin->TabStop = false;
 			this->groupBoxLogin->Text = L"Login";
 			// 
-			// ConnectedUserN
-			// 
-			this->labelConnectedUserN->AutoSize = true;
-			this->labelConnectedUserN->Location = System::Drawing::Point(1020, 6);
-			this->labelConnectedUserN->Name = L"ConnectedUserN";
-			this->labelConnectedUserN->Size = System::Drawing::Size(30, 15);
-			this->labelConnectedUserN->TabIndex = 16;
-			this->labelConnectedUserN->Text = L"User";
-			// groupBoxSearch
-			// 
-			this->groupBoxSearch->Controls->Add(this->buttonReset);
-			this->groupBoxSearch->Controls->Add(this->textBoxSearch);
-			this->groupBoxSearch->Controls->Add(this->buttonSearch);
-			this->groupBoxSearch->Location = System::Drawing::Point(837, 532);
-			this->groupBoxSearch->Name = L"groupBoxSearch";
-			this->groupBoxSearch->Size = System::Drawing::Size(282, 56);
-			this->groupBoxSearch->TabIndex = 18;
-			this->groupBoxSearch->TabStop = false;
-			this->groupBoxSearch->Text = L"Search";
-			// 
-			// buttonReset
-			// 
-			this->buttonReset->Location = System::Drawing::Point(193, 20);
-			this->buttonReset->Name = L"buttonReset";
-			this->buttonReset->Size = System::Drawing::Size(75, 23);
-			this->buttonReset->TabIndex = 18;
-			this->buttonReset->Text = L"Reset";
-			this->buttonReset->UseVisualStyleBackColor = true;
-			this->buttonReset->Click += gcnew System::EventHandler(this, &MyForm::buttonReset_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -551,13 +549,13 @@ namespace Klient {
 			this->tabControl1->ResumeLayout(false);
 			this->tabPageDatabase->ResumeLayout(false);
 			this->tabPageDatabase->PerformLayout();
+			this->groupBoxSearch->ResumeLayout(false);
+			this->groupBoxSearch->PerformLayout();
 			this->tabPageNew->ResumeLayout(false);
 			this->tabPageNew->PerformLayout();
 			this->tabPageCalendar->ResumeLayout(false);
 			this->groupBoxLogin->ResumeLayout(false);
 			this->groupBoxLogin->PerformLayout();
-			this->groupBoxSearch->ResumeLayout(false);
-			this->groupBoxSearch->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -567,14 +565,13 @@ namespace Klient {
 		int userID = 0;
 		array<System::String ^>^ tableNames = gcnew array<System::String ^>(10);
 		array<System::Int32 ^>^ tableIDs = gcnew array<System::Int32 ^>(10);
-
+		int tableCount = 0;
 
 #pragma endregion
 	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) {
 
 		connect(); //pripojenie na databazu vid o kusok nizsie
 
-		connect(); //pripojenie na databazu vid o kusok nizsie
 		//label7 = username
 		//label8 = password
 		if (!loged) { return; }
@@ -584,7 +581,7 @@ namespace Klient {
 		this->tabControl1->Visible = true;
 		this->groupBoxLogin->Visible = false;
 
-
+		voidGetUserTables();
 
 	}
 
@@ -642,11 +639,30 @@ namespace Klient {
 
 				 sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 				 stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-				 
-				 
-				 str = getActualData();
-				 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
-				 splitedStr = str->Split(':');
+
+
+				 str = getDataFromServer();
+				 if (str->Contains("NOTABLES")) { return; }
+				 array<System::String ^>^ splitedStr1 = gcnew array<System::String ^>(10);
+				 array<System::String ^>^ splitedStr2 = gcnew array<System::String ^>(3);
+
+				 splitedStr1 = str->Split(':');
+				 for (int i = 0; i < splitedStr1->Length; i++) {
+					 splitedStr2 = splitedStr1[i]->Split(',');
+					 tableNames[tableCount] = splitedStr2[0];
+					 tableIDs[tableCount] = Convert::ToInt32(splitedStr2[1]);
+					 this->listBox1->Items->Add(tableNames[tableCount]);
+					 tableCount++;
+
+				 }
+
+
+
+			 }
+
+			 void changeCurrentTable(System::Object^  sender, System::EventArgs^  e) {
+
+				 labelConnectedUserN->Text = this->listBox1->Text;
 
 			 }
 

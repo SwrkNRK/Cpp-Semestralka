@@ -1,4 +1,4 @@
-MyTable 111
+MyTable 15 111
 Meno:string Priezvisko:string ide:int 
 Jurko Dobrota 1
 Lukyno Cukyno 2
