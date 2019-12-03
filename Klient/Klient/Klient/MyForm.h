@@ -63,6 +63,11 @@ namespace Klient {
 	private: System::Windows::Forms::Label^  label8;
 	private: System::Windows::Forms::GroupBox^  groupBoxLogin;
 	private: System::Windows::Forms::Label^  labelConnectedUserN;
+	private: System::Windows::Forms::Button^  buttonSearch;
+	private: System::Windows::Forms::TextBox^  textBoxSearch;
+	private: System::Windows::Forms::GroupBox^  groupBoxSearch;
+	private: System::Windows::Forms::Button^  buttonReset;
+
 
 
 
@@ -121,6 +126,8 @@ namespace Klient {
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
+			this->buttonSearch = (gcnew System::Windows::Forms::Button());
+			this->textBoxSearch = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->linkLabelHelp = (gcnew System::Windows::Forms::LinkLabel());
@@ -137,6 +144,8 @@ namespace Klient {
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
 			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
+			this->groupBoxSearch = (gcnew System::Windows::Forms::GroupBox());
+			this->buttonReset = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -145,6 +154,7 @@ namespace Klient {
 			this->tabPageNew->SuspendLayout();
 			this->tabPageCalendar->SuspendLayout();
 			this->groupBoxLogin->SuspendLayout();
+			this->groupBoxSearch->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
@@ -304,6 +314,7 @@ namespace Klient {
 			// tabPageDatabase
 			// 
 			this->tabPageDatabase->Controls->Add(this->labelConnectedUserN);
+			this->tabPageDatabase->Controls->Add(this->groupBoxSearch);
 			this->tabPageDatabase->Controls->Add(this->listBox1);
 			this->tabPageDatabase->Controls->Add(this->label6);
 			this->tabPageDatabase->Controls->Add(this->linkLabelHelp);
@@ -317,6 +328,23 @@ namespace Klient {
 			this->tabPageDatabase->TabIndex = 0;
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
+			// 
+			// buttonSearch
+			// 
+			this->buttonSearch->Location = System::Drawing::Point(112, 20);
+			this->buttonSearch->Name = L"buttonSearch";
+			this->buttonSearch->Size = System::Drawing::Size(75, 23);
+			this->buttonSearch->TabIndex = 17;
+			this->buttonSearch->Text = L"Search";
+			this->buttonSearch->UseVisualStyleBackColor = true;
+			this->buttonSearch->Click += gcnew System::EventHandler(this, &MyForm::buttonSearch_Click);
+			// 
+			// textBoxSearch
+			// 
+			this->textBoxSearch->Location = System::Drawing::Point(6, 21);
+			this->textBoxSearch->Name = L"textBoxSearch";
+			this->textBoxSearch->Size = System::Drawing::Size(100, 22);
+			this->textBoxSearch->TabIndex = 16;
 			// 
 			// listBox1
 			// 
@@ -478,6 +506,27 @@ namespace Klient {
 			this->labelConnectedUserN->Size = System::Drawing::Size(30, 15);
 			this->labelConnectedUserN->TabIndex = 16;
 			this->labelConnectedUserN->Text = L"User";
+			// groupBoxSearch
+			// 
+			this->groupBoxSearch->Controls->Add(this->buttonReset);
+			this->groupBoxSearch->Controls->Add(this->textBoxSearch);
+			this->groupBoxSearch->Controls->Add(this->buttonSearch);
+			this->groupBoxSearch->Location = System::Drawing::Point(837, 532);
+			this->groupBoxSearch->Name = L"groupBoxSearch";
+			this->groupBoxSearch->Size = System::Drawing::Size(282, 56);
+			this->groupBoxSearch->TabIndex = 18;
+			this->groupBoxSearch->TabStop = false;
+			this->groupBoxSearch->Text = L"Search";
+			// 
+			// buttonReset
+			// 
+			this->buttonReset->Location = System::Drawing::Point(193, 20);
+			this->buttonReset->Name = L"buttonReset";
+			this->buttonReset->Size = System::Drawing::Size(75, 23);
+			this->buttonReset->TabIndex = 18;
+			this->buttonReset->Text = L"Reset";
+			this->buttonReset->UseVisualStyleBackColor = true;
+			this->buttonReset->Click += gcnew System::EventHandler(this, &MyForm::buttonReset_Click);
 			// 
 			// MyForm
 			// 
@@ -507,6 +556,8 @@ namespace Klient {
 			this->tabPageCalendar->ResumeLayout(false);
 			this->groupBoxLogin->ResumeLayout(false);
 			this->groupBoxLogin->PerformLayout();
+			this->groupBoxSearch->ResumeLayout(false);
+			this->groupBoxSearch->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -520,6 +571,8 @@ namespace Klient {
 
 #pragma endregion
 	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		connect(); //pripojenie na databazu vid o kusok nizsie
 
 		connect(); //pripojenie na databazu vid o kusok nizsie
 		//label7 = username
@@ -720,7 +773,7 @@ namespace Klient {
 
 				 return str;
 
-			}
+			 }
 
 
 	private: System::Void LoadBtn_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -736,96 +789,134 @@ namespace Klient {
 		loadTableByStr(receiveBuffer);
 
 		//Program precita nazvy v columns a hodi ich do comboboxu
-		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) 
+		for (int i = 0; i < this->dataGridView1->ColumnCount; i++)
 		{
 			this->comboBoxRemoveColumn->Items->Add(this->dataGridView1->Columns[i]->Name->ToString());
 		}
 
 	}
 
-			String^ getActualData() {
-				String ^ str = "";
-				dataGridView1->AllowUserToAddRows = false; //pri nacitavani dat treba zakazat uzivatelovi editovat tabulku
-				for (int i = 0; i < dataGridView1->Rows->Count; i++)
-				{
-					for (int j = 0; j < dataGridView1->Columns->Count; j++)
-					{
-						str += dataGridView1[j, i]->Value->ToString();
-						if (j != dataGridView1->Columns->Count - 1)
-						{
-							str += ",";
-						}
-					}
-					str += ":";
+			 String^ getActualData() {
+				 String ^ str = "";
+				 dataGridView1->AllowUserToAddRows = false; //pri nacitavani dat treba zakazat uzivatelovi editovat tabulku
+				 for (int i = 0; i < dataGridView1->Rows->Count; i++)
+				 {
+					 for (int j = 0; j < dataGridView1->Columns->Count; j++)
+					 {
+						 str += dataGridView1[j, i]->Value->ToString();
+						 if (j != dataGridView1->Columns->Count - 1)
+						 {
+							 str += ",";
+						 }
+					 }
+					 str += ":";
+				 }
+				 str += "*";
+				 dataGridView1->AllowUserToAddRows = true;
+
+				 return str;
+			 }
+
+
+	private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ str = "SAVE:111:";
+
+		str += getActualData();
+		str += "\0";
+
+		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+
+		if (!getDataFromServer()->Contains("SAVED")) {
+			//popup okno pre klienta, nepodarilo sa uloÔøΩiÔøΩ dÔøΩta na server														 NIE JE TO ESTE OTESTOVANE
+			MessageBox::Show("Saving failed", "Saving failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+	private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ str = "ADDCOLUMN:111:";
+		str += textBoxAddColumn->Text + ":";
+		str += comboBoxColumnType->SelectedItem->ToString() + "\0";
+
+		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+
+		if (getDataFromServer()->Contains("ADDEDCOLUMN")) {
+			this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
+			addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
+			this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
+		}
+		else { // popup okno nepodarilo sa pridaÔøΩ stÔøΩpec
+			MessageBox::Show("Adding column failed", "Column fail", MessageBoxButtons::OK, MessageBoxIcon::Error);						// NIE JE TO ESTE OTESTOVANE
+		}
+
+
+	}
+	private: System::Void button_Remove_Column_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
+		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
+		{
+			if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) {
+				String^ str = "REMOVECOL:111:" + i.ToString() + "\0";
+
+				sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+				stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+				if (getDataFromServer()->Contains("COLREMOVED")) {
+					this->dataGridView1->Columns->RemoveAt(i);
+					this->comboBoxRemoveColumn->Items->Remove(this->comboBoxRemoveColumn->SelectedItem);
 				}
-				str += "*";
-				dataGridView1->AllowUserToAddRows = true;
-
-				return str;
-	}
-
-
-private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-	String^ str = "SAVE:111:";
-
-	str += getActualData();
-	str += "\0";
-
-	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-
-	
-	if (!getDataFromServer()->Contains("SAVED")) {
-		//TODO popup okno pre klienta, nepodarilo sa uloûiù d·ta na server
-	}
-}
-private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
-	String^ str = "ADDCOLUMN:111:";
-	str += textBoxAddColumn->Text + ":";
-	str += comboBoxColumnType->SelectedItem->ToString()+"\0";
-	
-	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-
-
-	if (getDataFromServer()->Contains("ADDEDCOLUMN")) {
-		this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
-		addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
-		this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
-	} else { //TODO popup okno nepodarilo sa pridaù stÂpec
+				break;
 			}
-
-
-}
-private: System::Void button_Remove_Column_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
-	for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
-	{
-		if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) {
-			String^ str = "REMOVECOL:111:" + i.ToString() + "\0";
-
-			sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-			stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
-
-			if (getDataFromServer()->Contains("COLREMOVED")) {
-				this->dataGridView1->Columns->RemoveAt(i);
-				this->comboBoxRemoveColumn->Items->Remove(this->comboBoxRemoveColumn->SelectedItem);
-			}
-			break;
-		}		
+		}
 	}
-}
-private: System::Void comboBoxColumnType_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void dataGridView1_DataError(System::Object^  sender, System::Windows::Forms::DataGridViewDataErrorEventArgs^  e) {
-	MessageBox::Show("You have entered a wrong data type!", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Error);	
-}
-private: System::Void groupBoxColumns_Enter(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-}
-private: System::Void linkLabelHelp_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e) {
-	System::Diagnostics::Process::Start("www.google.com");
-}
+	private: System::Void comboBoxColumnType_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void dataGridView1_DataError(System::Object^  sender, System::Windows::Forms::DataGridViewDataErrorEventArgs^  e) {
+		MessageBox::Show("You have entered a wrong data type!", "Input Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+	private: System::Void groupBoxColumns_Enter(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void linkLabelHelp_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e) {
+		System::Diagnostics::Process::Start("www.google.com");
+	}
 
+	private: System::Void buttonSearch_Click(System::Object^  sender, System::EventArgs^  e) {
+		ArrayList tmp;
+		dataGridView1->AllowUserToAddRows = false;
+		for (int i = 0; i < this->dataGridView1->Columns->Count; i++)
+		{
+			for (int j = 0; j < this->dataGridView1->Rows->Count; j++) {
+				if (this->dataGridView1[i, j]->Value->ToString() == this->textBoxSearch->Text)
+				{
+					tmp.Add(j);
+				}				
+			}
+		}
+		if(tmp.Count == 0)
+		{
+			MessageBox::Show("Not found!", "Message", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			dataGridView1->AllowUserToAddRows = true;
+			return;
+		}
+		
+		for (int i = 0; i < this->dataGridView1->Rows->Count; i++) {
+			if (!tmp.Contains(i))
+			{
+				this->dataGridView1->CurrentCell = nullptr;
+				this->dataGridView1->Rows[i]->Visible = false;
+			}
+		}
+		//dataGridView1->AllowUserToAddRows = true;
+	}
+	private: System::Void buttonReset_Click(System::Object^  sender, System::EventArgs^  e) {
+		this->textBoxSearch->Text = "";
+		for (int i = 0; i < this->dataGridView1->Rows->Count; i++) {
+			this->dataGridView1->Rows[i]->Visible = true;		
+		}
+		dataGridView1->AllowUserToAddRows = true;
+	}
 };
 }
