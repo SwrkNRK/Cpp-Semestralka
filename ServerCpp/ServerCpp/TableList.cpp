@@ -14,10 +14,23 @@ TableList::TableList()
 
 TableList::~TableList()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		delete tables[i];
+		printf("Deleted ");
+	}
 
+	printf("\n\nTable: %s", tables[0]->col[0].row->value);
 
 }
 
+int TableList::getTableIDCounter() {
+	return tableIDCounter;
+}
+
+void TableList::setTableIDCounter(int value) {
+	tableIDCounter = value;
+}
 
 Table* TableList::getTable(int id) {
 	return tables[id];

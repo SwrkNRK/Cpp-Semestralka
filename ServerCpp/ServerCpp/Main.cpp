@@ -8,6 +8,7 @@
 #include "SDL_net.h"
 #include "ServerSocket.h"
 #include "Commands.h"
+#include <vld.h>
 
 int main(int argc, char *argv[])
 {
@@ -81,6 +82,8 @@ int main(int argc, char *argv[])
 
 	// Shutdown SDLNet - our ServerSocket will clean up after itself on destruction
 	SDLNet_Quit();
+	delete ss;
+	delete cmd;
 
 	return 0;
 }

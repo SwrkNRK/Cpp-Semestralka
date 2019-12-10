@@ -13,6 +13,7 @@ Commands::Commands()
 
 Commands::~Commands()
 {
+	delete dt;
 }
 
 int Commands::strToEnum(string str) {
@@ -39,6 +40,14 @@ int Commands::strToEnum(string str) {
 
 	if (str == "GETUSERTABLES") {
 		return GETUSERTABLES;
+	}
+
+	if (str == "NEWTABLE") {
+		return NEWTABLE;
+	}
+
+	if (str == "SHUTDOWN") {
+		return SHUTDOWN;
 	}
 
 }
@@ -73,15 +82,27 @@ string Commands::processMsg(string str) {  //LOAD:111
 	case 6:
 		return getUserTables(atoi(s[1].c_str()));
 
+	case 7:
+		return addTable(s);
+		
+	case 8:
+		return shutDown();
 	}
 
 
 }
 
+string Commands::shutDown() {
+	dt->saveTables();
+	//dt->saveUsers();
+
+	return "shutdown";
+}
+
 string Commands::loadTableData(int tableID) {
 	Table *t = dt->tli->findTable(tableID);
 	string str = "";
-
+	if (t == NULL || t->colCount == 0) { return "FAILED"; }
 	// Writing in file all the name of column and its type
 	for (int i = 0; i < t->colCount; i++) {
 		str += t->col[i].name;
@@ -130,7 +151,7 @@ void addRowToTable(Table *t, string str, int id) {
 string Commands::saveTableData(vector<string> str) {
 	int i = 1;
 	Table *t = dt->tli->findTable(atoi(str[i++].c_str()));			// after this i = 2
-	if (t == NULL) { return "Failed"; }
+	if (t == NULL) { return "FAILED"; }
 	t->rowCount = 0;
 	do {
 
@@ -180,6 +201,8 @@ string Commands::removeColumn(vector<string> str) {
 	}
 
 
+
+
 	t->colCount--;
 	for (int i = colID; i < t->colCount; i++) {
 		for (int j = 0; j < t->rowCount; j++) {
@@ -207,7 +230,7 @@ string Commands::connectUser(vector<string> str) {
 	return "INVALIDLOGIN";
 }
 
-string Commands::getUserTables(int userID) {
+string Commands::getUserTables(int userID){
 	User* u = dt->uli->findUser(userID);
 	string str = "";
 
@@ -221,9 +244,26 @@ string Commands::getUserTables(int userID) {
 		return "NOTABLES";
 	}
 	else {
+
 		str.pop_back();
 		return str;
 	}
 
 
 }
+
+string Commands::addTable(vector<string> str) {
+	int i = 1;
+	int tableC = dt->tli->getTableCount();
+	Table *t = dt->tli->getTable(tableC);
+	t->owner = dt->uli->findUser(atoi(str[i++].c_str()));
+	t->tableName = str[i];
+	t->tableID = dt->tli->getTableIDCounter();
+	dt->tli->setTableIDCounter(dt->tli->getTableCount() + 1);
+	dt->tli->addTableCount();
+
+	string strToSend = "TABLEADDED:"+ to_string(t->tableID);
+
+	return strToSend;
+}
+

@@ -16,10 +16,12 @@ public:
 	string removeColumn(vector<string> str);
 	string connectUser(vector<string> str);
 	string getUserTables(int userID);
+	string addTable(vector<string> str);
+	string shutDown();
 
 	int strToEnum(string str);
 
-	enum Cmds { LOAD=1, SAVE, ADDCOLUMN, REMOVECOLUMN, LOGIN, GETUSERTABLES };
+	enum Cmds { LOAD=1, SAVE, ADDCOLUMN, REMOVECOLUMN, LOGIN, GETUSERTABLES, NEWTABLE, SHUTDOWN};
 
 	Database* dt;
 

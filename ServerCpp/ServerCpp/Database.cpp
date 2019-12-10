@@ -27,6 +27,10 @@ int Database::loadTables() {
 	if (srcFile == NULL) { return -1; }
 	int c = 0;
 	string tmp;
+	//get tableIDCounter from file
+	char id[100];
+	fgets(id, 100, srcFile);
+	tli->setTableIDCounter(atoi(id));
 
 	do {
 		c = fgetc(srcFile);
@@ -200,9 +204,14 @@ int Database::saveTables() {
 	FILE* destFile = fopen(path.c_str(), "w");
 	if (destFile == NULL) { return -1; }
 	string tmp;
-
+	// add tableIDcounter to file
+	tmp = to_string(tli->getTableIDCounter());
+	tmp += "\n";
+	fputs(tmp.c_str(), destFile);
+	// add tables name to file
 	for (int i = 0; i < tli->getTableCount(); i++) {
 		tmp = tli->getTable(i)->tableName;
+		tmp += "\n";
 		fputs(tmp.c_str(), destFile);
 	}
 
@@ -225,6 +234,8 @@ int Database::saveTable(int id) {
 
 	// Writing in file the tableName and ID
 	tmp = t->tableName;
+	tmp += " ";
+	tmp += to_string(t->owner->userID);
 	tmp += " ";
 	tmp +=	to_string(t->tableID);
 	tmp += "\n";

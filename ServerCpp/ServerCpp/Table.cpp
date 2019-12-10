@@ -26,9 +26,9 @@ Table::Table(int tbID ,User* usr) {
 
 Table::~Table() {
 	for (int i = 0; i < colCount; i++) {
-		delete col[i].row;
+		delete[] col[i].row;
 	}
-	delete col;
+	delete[] col;
 
 }
 

@@ -1,5 +1,5 @@
 MyTable 15 111
-Meno:string Priezvisko:string ide:int 
-Jurko Dobrota 1
-Lukyno Cukyno 2
-Samko Pash 3
+Meno:string Priezvisko:string ide:int newC:String 
+Jurko j 1 g
+Lukyno l 2 gg
+Samko Pash 3 ggg

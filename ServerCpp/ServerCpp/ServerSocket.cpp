@@ -265,6 +265,7 @@ string ServerSocket::dealWithActivity(unsigned int clientNumber)
 } // End of dealWithActivity function
 
 void ServerSocket::sendToClient(unsigned int clientNumber, string str) {
+	if (str == "shutdown") { shutdownServer = true; return; }
 
 	strcpy(pBuffer, str.c_str());
 	SDLNet_TCP_Send(pClientSocket[clientNumber], (void *)pBuffer, strlen(pBuffer) + 1);

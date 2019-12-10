@@ -67,6 +67,7 @@ namespace Klient {
 	private: System::Windows::Forms::TextBox^  textBoxSearch;
 	private: System::Windows::Forms::GroupBox^  groupBoxSearch;
 	private: System::Windows::Forms::Button^  buttonReset;
+	private: System::Windows::Forms::Button^  ShutDown;
 
 
 
@@ -146,6 +147,7 @@ namespace Klient {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
+			this->ShutDown = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -313,6 +315,7 @@ namespace Klient {
 			// 
 			// tabPageDatabase
 			// 
+			this->tabPageDatabase->Controls->Add(this->ShutDown);
 			this->tabPageDatabase->Controls->Add(this->labelConnectedUserN);
 			this->tabPageDatabase->Controls->Add(this->groupBoxSearch);
 			this->tabPageDatabase->Controls->Add(this->listBox1);
@@ -429,6 +432,7 @@ namespace Klient {
 			this->buttonCreate->TabIndex = 3;
 			this->buttonCreate->Text = L"Create";
 			this->buttonCreate->UseVisualStyleBackColor = true;
+			this->buttonCreate->Click += gcnew System::EventHandler(this, &MyForm::buttonCreate_Click);
 			// 
 			// textBoxNewName
 			// 
@@ -436,6 +440,7 @@ namespace Klient {
 			this->textBoxNewName->Name = L"textBoxNewName";
 			this->textBoxNewName->Size = System::Drawing::Size(134, 22);
 			this->textBoxNewName->TabIndex = 2;
+			this->textBoxNewName->TextChanged += gcnew System::EventHandler(this, &MyForm::textBoxNewName_TextChanged);
 			// 
 			// label5
 			// 
@@ -526,6 +531,16 @@ namespace Klient {
 			this->groupBoxLogin->TabStop = false;
 			this->groupBoxLogin->Text = L"Login";
 			// 
+			// ShutDown
+			// 
+			this->ShutDown->Location = System::Drawing::Point(893, 604);
+			this->ShutDown->Name = L"ShutDown";
+			this->ShutDown->Size = System::Drawing::Size(165, 49);
+			this->ShutDown->TabIndex = 19;
+			this->ShutDown->Text = L"Shutdown";
+			this->ShutDown->UseVisualStyleBackColor = true;
+			this->ShutDown->Click += gcnew System::EventHandler(this, &MyForm::ShutDown_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -599,8 +614,10 @@ namespace Klient {
 					 sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 					 stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
-					 if (getDataFromServer()->Contains("CONNECTED")) {
-						 str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
+					 str = getDataFromServer();
+
+					 if (str->Contains("CONNECTED")) {
+						 
 						 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
 						 splitedStr = str->Split(':');
 						 userID = Convert::ToInt32(splitedStr[1]);
@@ -663,9 +680,20 @@ namespace Klient {
 			 void changeCurrentTable(System::Object^  sender, System::EventArgs^  e) {
 
 				 labelConnectedUserN->Text = this->listBox1->Text;
+				 SaveBtn_Click(this, e);
+				 LoadBtn_Click(this, e);
+
+
 
 			 }
 
+			 Int32 returnTableID() {
+				 for (int i = 0; i < listBox1->Items->Count; i++) {
+					 if (listBox1->Text == tableNames[i]) {
+						 return *tableIDs[i];
+					 }
+				 }
+			 }
 
 			 int strToEnum(String^ str) {
 				 str = str->ToLower();
@@ -721,11 +749,19 @@ namespace Klient {
 			 void loadTableByStr(array<Byte>^ recvBufr) {
 				 delete table;
 				 table = gcnew DataTable;
+				 dataGridView1->DataSource = table;
 				 int i = 0;
 
 				 String^ str = "";
 				 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
 				 bool quit = false;
+				 str = System::Text::Encoding::ASCII->GetString(recvBufr);
+				 if (str->Contains("FAILED")) {
+					 //TODO vypisat error pop up okno nepodarilo sa nacitat data
+					 return;
+				 }
+				 else { str = ""; }
+
 
 				 do {
 
@@ -770,7 +806,7 @@ namespace Klient {
 				 } while (true);
 
 				 dataGridView1->DataSource = table;
-
+				 System::Array::Clear(receiveBuffer, 0, 512);
 
 			 }
 
@@ -779,14 +815,14 @@ namespace Klient {
 				 do {
 
 					 if (stream->DataAvailable) {
-						 stream->Read(receiveBuffer, 0, 150);
+						 stream->Read(receiveBuffer, 0, 512);
 
 						 break;
 					 }
 				 } while (true);
 
 				 str = System::Text::Encoding::ASCII->GetString(receiveBuffer);
-
+				 System::Array::Clear(receiveBuffer, 0, 512);
 				 return str;
 
 			 }
@@ -794,14 +830,14 @@ namespace Klient {
 
 	private: System::Void LoadBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 
-		String^ str = "LOAD:111\0";
-
+		String^ str = "LOAD:";
+		str += Convert::ToString(returnTableID()) + "\0";
 		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
 
-		getDataFromServer();
 
+		receiveBuffer = System::Text::Encoding::ASCII->GetBytes(getDataFromServer());
 		loadTableByStr(receiveBuffer);
 
 		//Program precita nazvy v columns a hodi ich do comboboxu
@@ -835,7 +871,11 @@ namespace Klient {
 
 
 	private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-		String^ str = "SAVE:111:";
+		if (dataGridView1->ColumnCount == 0) { return; }
+
+		String^ str = "SAVE:";
+		str += Convert::ToString(returnTableID()) + ":";
+			
 
 		str += getActualData();
 		str += "\0";
@@ -850,7 +890,8 @@ namespace Klient {
 		}
 	}
 	private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
-		String^ str = "ADDCOLUMN:111:";
+		String^ str = "ADDCOLUMN:";
+		str += Convert::ToString(returnTableID()) +":";
 		str += textBoxAddColumn->Text + ":";
 		str += comboBoxColumnType->SelectedItem->ToString() + "\0";
 
@@ -873,8 +914,8 @@ namespace Klient {
 		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
 		{
 			if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) {
-				String^ str = "REMOVECOL:111:" + i.ToString() + "\0";
-
+				String^ str = "REMOVECOL:" + Convert::ToString(returnTableID()) + ":" + i.ToString() + "\0";
+				
 				sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 				stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
@@ -934,5 +975,40 @@ namespace Klient {
 		}
 		dataGridView1->AllowUserToAddRows = true;
 	}
+private: System::Void buttonCreate_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	//textboxnewname
+	String ^str = "NEWTABLE:" + userID.ToString() + ":"+textBoxNewName->Text + "\0";
+
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+	str = getDataFromServer();
+	array<System::String ^>^ splitedStr = gcnew array<System::String ^>(3);
+	splitedStr = str->Split(':');
+
+
+	if (str->Contains("TABLEADDED")) {
+		listBox1->Items->Add(textBoxNewName->Text);
+		tableNames[tableCount] = textBoxNewName->Text;
+		tableIDs[tableCount] = Convert::ToInt32(splitedStr[1]);
+		tableCount++;
+		textBoxNewName->Text = "";
+	}
+
+
+}
+private: System::Void textBoxNewName_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void ShutDown_Click(System::Object^  sender, System::EventArgs^  e) {
+	String ^str = "SHUTDOWN:Shutdown\0";
+
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+	Application::Exit();
+
+
+}
 };
 }

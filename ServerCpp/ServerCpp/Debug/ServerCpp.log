@@ -1,4 +1,3 @@
-﻿  Commands.cpp
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(44): warning C4715: 'Commands::strToEnum': not all control paths return a value
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(79): warning C4715: 'Commands::processMsg': not all control paths return a value
+﻿  TableList.cpp
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\tablelist.cpp(23): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
   ServerCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe

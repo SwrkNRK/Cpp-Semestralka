@@ -16,9 +16,12 @@ public:
 	Table* findTable(int id);
 	void addTableCount();
 	int getTableCount();
+	int getTableIDCounter();
+	void setTableIDCounter(int val);
 
 private:
 	int tableCount;
+	int tableIDCounter;
 	//vector<Table*> tables;
 	Table *tables[10];
 };

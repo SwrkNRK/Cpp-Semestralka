@@ -14,7 +14,9 @@ UserList::UserList()
 
 UserList::~UserList()
 {
-	delete users;
+	for (int i = 0; i < 20; i++) {
+		delete users[i];
+	}
 
 }
 
