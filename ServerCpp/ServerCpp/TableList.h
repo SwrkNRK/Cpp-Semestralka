@@ -16,6 +16,7 @@ public:
 	Table* findTable(int id);
 	void addTableCount();
 	int getTableCount();
+	void setTableCount(int val);
 	int getTableIDCounter();
 	void setTableIDCounter(int val);
 

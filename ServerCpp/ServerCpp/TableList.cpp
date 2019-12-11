@@ -47,9 +47,16 @@ int TableList::getTableCount() {
 	return tableCount;
 }
 
+void TableList::setTableCount(int val)
+{
+	tableCount = val;
+}
+
 void TableList::addTableCount() {
 	tableCount++;
 }
+
+
 
 
 

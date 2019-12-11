@@ -1,13 +1,11 @@
 ﻿  Commands.cpp
   Database.cpp
   Main.cpp
-  ServerSocket.cpp
-  Table.cpp
   TableList.cpp
   Generating Code...
 c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(49): warning C4715: 'Database::loadTables': not all control paths return a value
 c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(198): warning C4715: 'Database::loadUsers': not all control paths return a value
 c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\database.cpp(133): warning C4715: 'Database::loadTable': not all control paths return a value
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(53): warning C4715: 'Commands::strToEnum': not all control paths return a value
-c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(93): warning C4715: 'Commands::processMsg': not all control paths return a value
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(57): warning C4715: 'Commands::strToEnum': not all control paths return a value
+c:\users\lk\desktop\cpp semestr\cpp-semestralka\servercpp\servercpp\commands.cpp(101): warning C4715: 'Commands::processMsg': not all control paths return a value
   ServerCpp.vcxproj -> C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\Debug\ServerCpp.exe

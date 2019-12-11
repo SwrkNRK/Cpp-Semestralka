@@ -50,6 +50,10 @@ int Commands::strToEnum(string str) {
 		return SHUTDOWN;
 	}
 
+	if (str == "DELETETABLE") {
+		return DELETETABLE;
+	}
+
 }
 
 string Commands::processMsg(string str) {  //LOAD:111
@@ -87,7 +91,11 @@ string Commands::processMsg(string str) {  //LOAD:111
 		
 	case 8:
 		return shutDown();
+
+	case 9:
+		return removeTable(atoi(s[1].c_str()));
 	}
+
 
 
 }
@@ -267,3 +275,23 @@ string Commands::addTable(vector<string> str) {
 	return strToSend;
 }
 
+string Commands::removeTable(int tableID) {
+
+	for (int i = 0; i < dt->tli->getTableCount(); i++) {
+
+		if (dt->tli->getTable(i)->tableID == tableID) {
+			*dt->tli->getTable(i) = *dt->tli->getTable(dt->tli->getTableCount() - 1);
+			Table* t = dt->tli->getTable(dt->tli->getTableCount() - 1);
+			t->colCount = 0;
+			t->rowCount = 0;
+			t->owner = NULL;
+			t->tableID = 0;
+			t->tableName = "";
+			dt->tli->setTableCount(dt->tli->getTableCount() - 1);
+		}
+
+	}
+
+
+	return "DELETED";
+}

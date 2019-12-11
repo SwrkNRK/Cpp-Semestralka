@@ -68,6 +68,7 @@ namespace Klient {
 	private: System::Windows::Forms::GroupBox^  groupBoxSearch;
 	private: System::Windows::Forms::Button^  buttonReset;
 	private: System::Windows::Forms::Button^  ShutDown;
+	private: System::Windows::Forms::Button^  DeleteTable;
 
 
 
@@ -127,6 +128,7 @@ namespace Klient {
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
+			this->ShutDown = (gcnew System::Windows::Forms::Button());
 			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
 			this->groupBoxSearch = (gcnew System::Windows::Forms::GroupBox());
 			this->buttonReset = (gcnew System::Windows::Forms::Button());
@@ -147,7 +149,7 @@ namespace Klient {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
-			this->ShutDown = (gcnew System::Windows::Forms::Button());
+			this->DeleteTable = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -315,6 +317,7 @@ namespace Klient {
 			// 
 			// tabPageDatabase
 			// 
+			this->tabPageDatabase->Controls->Add(this->DeleteTable);
 			this->tabPageDatabase->Controls->Add(this->ShutDown);
 			this->tabPageDatabase->Controls->Add(this->labelConnectedUserN);
 			this->tabPageDatabase->Controls->Add(this->groupBoxSearch);
@@ -331,6 +334,16 @@ namespace Klient {
 			this->tabPageDatabase->TabIndex = 0;
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
+			// 
+			// ShutDown
+			// 
+			this->ShutDown->Location = System::Drawing::Point(893, 604);
+			this->ShutDown->Name = L"ShutDown";
+			this->ShutDown->Size = System::Drawing::Size(165, 49);
+			this->ShutDown->TabIndex = 19;
+			this->ShutDown->Text = L"Shutdown";
+			this->ShutDown->UseVisualStyleBackColor = true;
+			this->ShutDown->Click += gcnew System::EventHandler(this, &MyForm::ShutDown_Click);
 			// 
 			// labelConnectedUserN
 			// 
@@ -386,7 +399,7 @@ namespace Klient {
 			this->listBox1->ItemHeight = 15;
 			this->listBox1->Location = System::Drawing::Point(843, 38);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(276, 94);
+			this->listBox1->Size = System::Drawing::Size(276, 64);
 			this->listBox1->TabIndex = 15;
 			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::changeCurrentTable);
 			// 
@@ -531,15 +544,15 @@ namespace Klient {
 			this->groupBoxLogin->TabStop = false;
 			this->groupBoxLogin->Text = L"Login";
 			// 
-			// ShutDown
+			// DeleteTable
 			// 
-			this->ShutDown->Location = System::Drawing::Point(893, 604);
-			this->ShutDown->Name = L"ShutDown";
-			this->ShutDown->Size = System::Drawing::Size(165, 49);
-			this->ShutDown->TabIndex = 19;
-			this->ShutDown->Text = L"Shutdown";
-			this->ShutDown->UseVisualStyleBackColor = true;
-			this->ShutDown->Click += gcnew System::EventHandler(this, &MyForm::ShutDown_Click);
+			this->DeleteTable->Location = System::Drawing::Point(843, 108);
+			this->DeleteTable->Name = L"DeleteTable";
+			this->DeleteTable->Size = System::Drawing::Size(276, 33);
+			this->DeleteTable->TabIndex = 20;
+			this->DeleteTable->Text = L"Delete Table";
+			this->DeleteTable->UseVisualStyleBackColor = true;
+			this->DeleteTable->Click += gcnew System::EventHandler(this, &MyForm::DeleteTable_Click);
 			// 
 			// MyForm
 			// 
@@ -578,8 +591,8 @@ namespace Klient {
 		DataTable^ table = gcnew DataTable;
 		bool loged = false;
 		int userID = 0;
-		array<System::String ^>^ tableNames = gcnew array<System::String ^>(10);
-		array<System::Int32 ^>^ tableIDs = gcnew array<System::Int32 ^>(10);
+		array<System::String ^>^ tableNames = gcnew array<System::String ^>(20);
+		array<System::Int32 ^>^ tableIDs = gcnew array<System::Int32 ^>(20);
 		int tableCount = 0;
 		String ^oldData = "";
 
@@ -1012,6 +1025,42 @@ private: System::Void ShutDown_Click(System::Object^  sender, System::EventArgs^
 
 	Application::Exit();
 
+
+}
+
+private: System::Void DeleteTable_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	String ^str = "DELETETABLE:";
+
+	str += Convert::ToString(returnTableID(this->listBox1->Text)) + "\0";
+
+	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+
+	if (!getDataFromServer()->Contains("DELETED")) {
+		MessageBox::Show("Deleting failed", "Deleting failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+
+	else {
+		for (int i = 0; i < tableCount; i++) {
+
+			if (tableNames[i] == this->listBox1->Text) {
+				if (i == tableCount) {
+					tableCount--;
+				}
+				else {
+
+					tableCount--;
+					for (int j = i; j < tableCount; j++) {
+						tableNames[j] = tableNames[j + 1];
+						tableIDs[j] = tableIDs[j + 1];
+					}
+				}
+			}
+
+		}
+		this->listBox1->Items->Remove(this->listBox1->Text);
+	}
 
 }
 };
