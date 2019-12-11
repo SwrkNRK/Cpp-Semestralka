@@ -581,6 +581,7 @@ namespace Klient {
 		array<System::String ^>^ tableNames = gcnew array<System::String ^>(10);
 		array<System::Int32 ^>^ tableIDs = gcnew array<System::Int32 ^>(10);
 		int tableCount = 0;
+		String ^oldData = "";
 
 #pragma endregion
 	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -672,7 +673,7 @@ namespace Klient {
 					 tableCount++;
 
 				 }
-
+				 
 
 
 			 }
@@ -681,18 +682,20 @@ namespace Klient {
 
 				 labelConnectedUserN->Text = this->listBox1->Text;
 				 SaveBtn_Click(this, e);
+				 oldData = this->listBox1->Text;
 				 LoadBtn_Click(this, e);
 
 
 
 			 }
 
-			 Int32 returnTableID() {
+			 Int32 returnTableID(String^ str) {
 				 for (int i = 0; i < listBox1->Items->Count; i++) {
-					 if (listBox1->Text == tableNames[i]) {
+					 if (str == tableNames[i]) {
 						 return *tableIDs[i];
 					 }
 				 }
+				 return -1;
 			 }
 
 			 int strToEnum(String^ str) {
@@ -831,7 +834,7 @@ namespace Klient {
 	private: System::Void LoadBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 
 		String^ str = "LOAD:";
-		str += Convert::ToString(returnTableID()) + "\0";
+		str += Convert::ToString(returnTableID(listBox1->Text)) + "\0";
 		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
@@ -850,6 +853,8 @@ namespace Klient {
 
 			 String^ getActualData() {
 				 String ^ str = "";
+				 if (dataGridView1->ColumnCount == 0) { return str; }//check if there is any data in table
+
 				 dataGridView1->AllowUserToAddRows = false; //pri nacitavani dat treba zakazat uzivatelovi editovat tabulku
 				 for (int i = 0; i < dataGridView1->Rows->Count; i++)
 				 {
@@ -871,12 +876,11 @@ namespace Klient {
 
 
 	private: System::Void SaveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (dataGridView1->ColumnCount == 0) { return; }
+		if (dataGridView1->ColumnCount == 0 || returnTableID(oldData) == -1) { return; }
 
 		String^ str = "SAVE:";
-		str += Convert::ToString(returnTableID()) + ":";
+		str += Convert::ToString(returnTableID(oldData)) + ":";
 			
-
 		str += getActualData();
 		str += "\0";
 
@@ -885,13 +889,13 @@ namespace Klient {
 
 
 		if (!getDataFromServer()->Contains("SAVED")) {
-			//popup okno pre klienta, nepodarilo sa ulo�i� d�ta na server														 NIE JE TO ESTE OTESTOVANE
+			//popup okno pre klienta, nepodarilo sa ulo�i� d�ta na server		 NIE JE TO ESTE OTESTOVANE
 			MessageBox::Show("Saving failed", "Saving failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 	private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
 		String^ str = "ADDCOLUMN:";
-		str += Convert::ToString(returnTableID()) +":";
+		str += Convert::ToString(returnTableID(this->listBox1->Text)) +":";
 		str += textBoxAddColumn->Text + ":";
 		str += comboBoxColumnType->SelectedItem->ToString() + "\0";
 
@@ -914,7 +918,7 @@ namespace Klient {
 		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
 		{
 			if (this->dataGridView1->Columns[i]->Name->ToString() == this->comboBoxRemoveColumn->SelectedItem->ToString()) {
-				String^ str = "REMOVECOL:" + Convert::ToString(returnTableID()) + ":" + i.ToString() + "\0";
+				String^ str = "REMOVECOL:" + Convert::ToString(returnTableID(this->listBox1->Text)) + ":" + i.ToString() + "\0";
 				
 				sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 				stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));

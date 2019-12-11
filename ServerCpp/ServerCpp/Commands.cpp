@@ -259,7 +259,7 @@ string Commands::addTable(vector<string> str) {
 	t->owner = dt->uli->findUser(atoi(str[i++].c_str()));
 	t->tableName = str[i];
 	t->tableID = dt->tli->getTableIDCounter();
-	dt->tli->setTableIDCounter(dt->tli->getTableCount() + 1);
+	dt->tli->setTableIDCounter(dt->tli->getTableIDCounter() + 1);
 	dt->tli->addTableCount();
 
 	string strToSend = "TABLEADDED:"+ to_string(t->tableID);
