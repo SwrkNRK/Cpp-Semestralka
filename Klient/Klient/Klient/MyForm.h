@@ -738,7 +738,7 @@ namespace Klient {
 			 }
 
 			 void changeCurrentTable(System::Object^  sender, System::EventArgs^  e) {
-
+				 this->comboBoxRemoveColumn->Items->Clear();
 				 labelConnectedUserN->Text = this->listBox1->Text;
 				 SaveBtn_Click(this, e);
 				 oldData = this->listBox1->Text;
@@ -1118,6 +1118,12 @@ private: System::Void buttonLogout_Click(System::Object^  sender, System::EventA
 	this->tabControl1->Visible = false;
 	this->groupBoxLogin->Visible = true;
 	SaveBtn_Click(this, e);
+	this->dataGridView1->Columns->Clear();
+	this->dataGridView1->Refresh();
+	this->listBox1->Items->Clear();
+	this->listBox1->Refresh();
+	this->comboBoxRemoveColumn->Items->Clear();
+	this->comboBoxRemoveColumn->Refresh();
 }
 };
 }
