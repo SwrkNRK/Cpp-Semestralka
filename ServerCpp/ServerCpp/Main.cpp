@@ -8,7 +8,7 @@
 #include "SDL_net.h"
 #include "ServerSocket.h"
 #include "Commands.h"
-#include <vld.h>
+//#include <vld.h>
 
 int main(int argc, char *argv[])
 {

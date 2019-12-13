@@ -72,6 +72,16 @@ namespace Klient {
 
 
 
+	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::Label^  label10;
+	private: System::Windows::Forms::Button^  buttonLogout;
+
+	private:
+
+
+
+
+
 
 
 
@@ -97,13 +107,14 @@ namespace Klient {
 
 	private: System::Windows::Forms::Button^  LoadBtn;
 	private: System::Windows::Forms::Button^  SaveBtn;
+	private: System::ComponentModel::IContainer^  components;
 	protected:
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -124,10 +135,14 @@ namespace Klient {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxColumns = (gcnew System::Windows::Forms::GroupBox());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxServer = (gcnew System::Windows::Forms::GroupBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageDatabase = (gcnew System::Windows::Forms::TabPage());
+			this->buttonLogout = (gcnew System::Windows::Forms::Button());
+			this->DeleteTable = (gcnew System::Windows::Forms::Button());
 			this->ShutDown = (gcnew System::Windows::Forms::Button());
 			this->labelConnectedUserN = (gcnew System::Windows::Forms::Label());
 			this->groupBoxSearch = (gcnew System::Windows::Forms::GroupBox());
@@ -149,7 +164,6 @@ namespace Klient {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxLogin = (gcnew System::Windows::Forms::GroupBox());
-			this->DeleteTable = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBoxColumns->SuspendLayout();
 			this->groupBoxServer->SuspendLayout();
@@ -267,6 +281,8 @@ namespace Klient {
 			// 
 			// groupBoxColumns
 			// 
+			this->groupBoxColumns->Controls->Add(this->label11);
+			this->groupBoxColumns->Controls->Add(this->label10);
 			this->groupBoxColumns->Controls->Add(this->label3);
 			this->groupBoxColumns->Controls->Add(this->buttonRemoveColumn);
 			this->groupBoxColumns->Controls->Add(this->label2);
@@ -275,13 +291,31 @@ namespace Klient {
 			this->groupBoxColumns->Controls->Add(this->textBoxAddColumn);
 			this->groupBoxColumns->Controls->Add(this->comboBoxColumnType);
 			this->groupBoxColumns->Controls->Add(this->buttonAddColumn);
-			this->groupBoxColumns->Location = System::Drawing::Point(837, 253);
+			this->groupBoxColumns->Location = System::Drawing::Point(824, 255);
 			this->groupBoxColumns->Name = L"groupBoxColumns";
 			this->groupBoxColumns->Size = System::Drawing::Size(282, 273);
 			this->groupBoxColumns->TabIndex = 11;
 			this->groupBoxColumns->TabStop = false;
 			this->groupBoxColumns->Text = L"Columns Management";
 			this->groupBoxColumns->Enter += gcnew System::EventHandler(this, &MyForm::groupBoxColumns_Enter);
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Location = System::Drawing::Point(97, 164);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(49, 15);
+			this->label11->TabIndex = 13;
+			this->label11->Text = L"Remove";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Location = System::Drawing::Point(97, 22);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(29, 15);
+			this->label10->TabIndex = 12;
+			this->label10->Text = L"Add";
 			// 
 			// label3
 			// 
@@ -296,7 +330,7 @@ namespace Klient {
 			// 
 			this->groupBoxServer->Controls->Add(this->LoadBtn);
 			this->groupBoxServer->Controls->Add(this->SaveBtn);
-			this->groupBoxServer->Location = System::Drawing::Point(837, 160);
+			this->groupBoxServer->Location = System::Drawing::Point(824, 162);
 			this->groupBoxServer->Name = L"groupBoxServer";
 			this->groupBoxServer->Size = System::Drawing::Size(282, 87);
 			this->groupBoxServer->TabIndex = 12;
@@ -308,7 +342,7 @@ namespace Klient {
 			this->tabControl1->Controls->Add(this->tabPageDatabase);
 			this->tabControl1->Controls->Add(this->tabPageNew);
 			this->tabControl1->Controls->Add(this->tabPageCalendar);
-			this->tabControl1->Location = System::Drawing::Point(2, 0);
+			this->tabControl1->Location = System::Drawing::Point(0, 0);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(1136, 736);
@@ -317,6 +351,7 @@ namespace Klient {
 			// 
 			// tabPageDatabase
 			// 
+			this->tabPageDatabase->Controls->Add(this->buttonLogout);
 			this->tabPageDatabase->Controls->Add(this->DeleteTable);
 			this->tabPageDatabase->Controls->Add(this->ShutDown);
 			this->tabPageDatabase->Controls->Add(this->labelConnectedUserN);
@@ -335,11 +370,31 @@ namespace Klient {
 			this->tabPageDatabase->Text = L"Database";
 			this->tabPageDatabase->UseVisualStyleBackColor = true;
 			// 
+			// buttonLogout
+			// 
+			this->buttonLogout->Location = System::Drawing::Point(830, 610);
+			this->buttonLogout->Name = L"buttonLogout";
+			this->buttonLogout->Size = System::Drawing::Size(75, 22);
+			this->buttonLogout->TabIndex = 22;
+			this->buttonLogout->Text = L"Logout";
+			this->buttonLogout->UseVisualStyleBackColor = true;
+			this->buttonLogout->Click += gcnew System::EventHandler(this, &MyForm::buttonLogout_Click);
+			// 
+			// DeleteTable
+			// 
+			this->DeleteTable->Location = System::Drawing::Point(824, 123);
+			this->DeleteTable->Name = L"DeleteTable";
+			this->DeleteTable->Size = System::Drawing::Size(276, 33);
+			this->DeleteTable->TabIndex = 20;
+			this->DeleteTable->Text = L"Delete Table";
+			this->DeleteTable->UseVisualStyleBackColor = true;
+			this->DeleteTable->Click += gcnew System::EventHandler(this, &MyForm::DeleteTable_Click);
+			// 
 			// ShutDown
 			// 
-			this->ShutDown->Location = System::Drawing::Point(893, 604);
+			this->ShutDown->Location = System::Drawing::Point(830, 638);
 			this->ShutDown->Name = L"ShutDown";
-			this->ShutDown->Size = System::Drawing::Size(165, 49);
+			this->ShutDown->Size = System::Drawing::Size(75, 22);
 			this->ShutDown->TabIndex = 19;
 			this->ShutDown->Text = L"Shutdown";
 			this->ShutDown->UseVisualStyleBackColor = true;
@@ -348,7 +403,7 @@ namespace Klient {
 			// labelConnectedUserN
 			// 
 			this->labelConnectedUserN->AutoSize = true;
-			this->labelConnectedUserN->Location = System::Drawing::Point(1020, 6);
+			this->labelConnectedUserN->Location = System::Drawing::Point(913, 6);
 			this->labelConnectedUserN->Name = L"labelConnectedUserN";
 			this->labelConnectedUserN->Size = System::Drawing::Size(30, 15);
 			this->labelConnectedUserN->TabIndex = 16;
@@ -359,7 +414,7 @@ namespace Klient {
 			this->groupBoxSearch->Controls->Add(this->buttonReset);
 			this->groupBoxSearch->Controls->Add(this->textBoxSearch);
 			this->groupBoxSearch->Controls->Add(this->buttonSearch);
-			this->groupBoxSearch->Location = System::Drawing::Point(837, 532);
+			this->groupBoxSearch->Location = System::Drawing::Point(824, 534);
 			this->groupBoxSearch->Name = L"groupBoxSearch";
 			this->groupBoxSearch->Size = System::Drawing::Size(282, 56);
 			this->groupBoxSearch->TabIndex = 18;
@@ -397,7 +452,7 @@ namespace Klient {
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 15;
-			this->listBox1->Location = System::Drawing::Point(843, 38);
+			this->listBox1->Location = System::Drawing::Point(824, 53);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(276, 64);
 			this->listBox1->TabIndex = 15;
@@ -406,7 +461,7 @@ namespace Klient {
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(840, 19);
+			this->label6->Location = System::Drawing::Point(824, 35);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(133, 15);
 			this->label6->TabIndex = 14;
@@ -471,9 +526,9 @@ namespace Klient {
 				static_cast<System::Byte>(0)));
 			this->label4->Location = System::Drawing::Point(32, 38);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(231, 24);
+			this->label4->Size = System::Drawing::Size(195, 24);
 			this->label4->TabIndex = 0;
-			this->label4->Text = L"Creating a new database";
+			this->label4->Text = L"Creating a new table";
 			// 
 			// tabPageCalendar
 			// 
@@ -544,16 +599,6 @@ namespace Klient {
 			this->groupBoxLogin->TabStop = false;
 			this->groupBoxLogin->Text = L"Login";
 			// 
-			// DeleteTable
-			// 
-			this->DeleteTable->Location = System::Drawing::Point(843, 108);
-			this->DeleteTable->Name = L"DeleteTable";
-			this->DeleteTable->Size = System::Drawing::Size(276, 33);
-			this->DeleteTable->TabIndex = 20;
-			this->DeleteTable->Text = L"Delete Table";
-			this->DeleteTable->UseVisualStyleBackColor = true;
-			this->DeleteTable->Click += gcnew System::EventHandler(this, &MyForm::DeleteTable_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
@@ -605,7 +650,7 @@ namespace Klient {
 		//label8 = password
 		if (!loged) { return; }
 		//ZOBRAZOVANIE PRVKOV AFTER CONNECT
-		buttonLogin->Visible = false;
+		//buttonLogin->Visible = false;
 
 		this->tabControl1->Visible = true;
 		this->groupBoxLogin->Visible = false;
@@ -614,7 +659,7 @@ namespace Klient {
 
 	}
 
-			 void connect() {
+			 void connect() { //pripojenie klienta k serveru
 				 try
 				 {
 					 if (myTcpClient == nullptr) {
@@ -632,11 +677,11 @@ namespace Klient {
 
 					 if (str->Contains("CONNECTED")) {
 						 
-						 array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
-						 splitedStr = str->Split(':');
-						 userID = Convert::ToInt32(splitedStr[1]);
-						 labelConnectedUserN->Text = textBoxUsername->Text;
-						 loged = true;
+						array<System::String ^>^ splitedStr = gcnew array<System::String ^>(10);
+						splitedStr = str->Split(':');
+						userID = Convert::ToInt32(splitedStr[1]);
+						labelConnectedUserN->Text = textBoxUsername->Text;
+						loged = true;					
 					 }
 					 else {
 						 stream->Close();
@@ -644,7 +689,8 @@ namespace Klient {
 						 myTcpClient = nullptr;
 						 stream = nullptr;
 
-						 //TODO pop up okno bad username or password
+						 //pop up okno bad username or password
+						 MessageBox::Show("Wrong Username or Password", "Login Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 					 }
 
 
@@ -907,25 +953,29 @@ namespace Klient {
 		}
 	}
 	private: System::Void buttonAddColumn_Click(System::Object^  sender, System::EventArgs^  e) {
-		String^ str = "ADDCOLUMN:";
-		str += Convert::ToString(returnTableID(this->listBox1->Text)) +":";
-		str += textBoxAddColumn->Text + ":";
-		str += comboBoxColumnType->SelectedItem->ToString() + "\0";
+		if (textBoxAddColumn->Text == "")
+		{
+			MessageBox::Show("You cannot enter a blank name!", "Adding column failed", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);		
+		} else
+		{
+			String^ str = "ADDCOLUMN:";
+			str += Convert::ToString(returnTableID(this->listBox1->Text)) + ":";
+			str += textBoxAddColumn->Text + ":";
+			str += comboBoxColumnType->SelectedItem->ToString() + "\0";
 
-		sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
-		stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
+			sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
+			stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
 
-		if (getDataFromServer()->Contains("ADDEDCOLUMN")) {
-			this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
-			addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
-			this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
+			if (getDataFromServer()->Contains("ADDEDCOLUMN")) {
+				this->comboBoxRemoveColumn->Items->Add(textBoxAddColumn->Text);
+				addColToTable(textBoxAddColumn->Text, comboBoxColumnType->SelectedItem->ToString()); //prida column do datagridview
+				this->textBoxAddColumn->Text = ""; //po pridani column vymaze obsah txtboxu
+			}
+			else { // popup okno nepodarilo sa prida� st�pec
+				MessageBox::Show("Adding column failed", "Column fail", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
-		else { // popup okno nepodarilo sa prida� st�pec
-			MessageBox::Show("Adding column failed", "Column fail", MessageBoxButtons::OK, MessageBoxIcon::Error);						// NIE JE TO ESTE OTESTOVANE
-		}
-
-
 	}
 	private: System::Void button_Remove_Column_Click(System::Object^  sender, System::EventArgs^  e) { //neviem preco sa to nepremenovalo ale patri to buttonRemoveColumn
 		for (int i = 0; i < this->dataGridView1->ColumnCount; i++) //Prechadza polom columov v datagridview a ked najde zhodny ako je zvoleny v comboboxe vymaze ho
@@ -995,12 +1045,12 @@ namespace Klient {
 private: System::Void buttonCreate_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	//textboxnewname
-	String ^str = "NEWTABLE:" + userID.ToString() + ":"+textBoxNewName->Text + "\0";
+	String ^str = "NEWTABLE:" + userID.ToString() + ":"+textBoxNewName->Text + "\0"; //string ktory sa posiela na server
 
 	sendBuffer = System::Text::Encoding::ASCII->GetBytes(str);
 	stream->Write(sendBuffer, 0, System::Text::Encoding::ASCII->GetByteCount(str));
 
-	str = getDataFromServer();
+	str = getDataFromServer(); 
 	array<System::String ^>^ splitedStr = gcnew array<System::String ^>(3);
 	splitedStr = str->Split(':');
 
@@ -1011,6 +1061,7 @@ private: System::Void buttonCreate_Click(System::Object^  sender, System::EventA
 		tableIDs[tableCount] = Convert::ToInt32(splitedStr[1]);
 		tableCount++;
 		textBoxNewName->Text = "";
+		MessageBox::Show("Table added", "Message", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 
 
@@ -1062,6 +1113,11 @@ private: System::Void DeleteTable_Click(System::Object^  sender, System::EventAr
 		this->listBox1->Items->Remove(this->listBox1->Text);
 	}
 
+}
+private: System::Void buttonLogout_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->tabControl1->Visible = false;
+	this->groupBoxLogin->Visible = true;
+	SaveBtn_Click(this, e);
 }
 };
 }

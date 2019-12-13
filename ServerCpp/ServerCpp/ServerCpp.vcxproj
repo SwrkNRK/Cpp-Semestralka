@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\ServerCpp;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\ServerCpp;C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp\ServerCpp;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\ServerCpp;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\ServerCpp;C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp\ServerCpp;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,7 +90,7 @@
       <SubSystem>Console</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
-      <AdditionalLibraryDirectories>C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;C:\Users\LK\Desktop\Cpp semestr\Cpp-Semestralka\ServerCpp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,7 +117,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;C:\Users\Samuel\source\repos\Cpp-Semestralka\ServerCpp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
